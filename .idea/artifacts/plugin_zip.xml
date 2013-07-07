@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact build-on-make="true" name="plugin-zip">
+    <output-path>$PROJECT_DIR$/out/artifacts/plugin_zip</output-path>
+    <root id="root">
+      <element id="archive" name="OpenCoverRunner.zip">
+        <element id="artifact" artifact-name="plugin" />
+      </element>
+    </root>
+  </artifact>
+</component>
