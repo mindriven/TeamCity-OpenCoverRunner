@@ -11,6 +11,20 @@
         </element>
       </element>
       <element id="file-copy" path="$PROJECT_DIR$/teamcity-plugin.xml" />
+      <element id="directory" name="agent">
+        <element id="archive" name="OpenCoverRunner.zip">
+          <element id="directory" name="OpenCoverRunner">
+            <element id="directory" name="lib">
+              <element id="archive" name="OpenCoverRunner-Common.jar">
+                <element id="module-output" name="OpenCoverRunner-common" />
+              </element>
+              <element id="archive" name="OpenCoverRunner.jar">
+                <element id="module-output" name="OpenCoverRunner-agent" />
+              </element>
+            </element>
+          </element>
+        </element>
+      </element>
     </root>
   </artifact>
 </component>
