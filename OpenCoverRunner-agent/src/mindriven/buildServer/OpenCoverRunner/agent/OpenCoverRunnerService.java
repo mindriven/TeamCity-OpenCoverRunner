@@ -20,26 +20,7 @@ public class OpenCoverRunnerService extends BuildServiceAdapter {
     @NotNull
     @Override
     public ProgramCommandLine makeProgramCommandLine() throws RunBuildException {
-        return new ProgramCommandLine() {
-            @NotNull
-            public String getExecutablePath() throws RunBuildException {
-                return "executable.exe";
-            }
-
-            @NotNull
-            public String getWorkingDirectory() throws RunBuildException {
-                return ".";
-            }
-
-            @NotNull
-            public List<String> getArguments() throws RunBuildException {
-                return new Vector<String>();
-            }
-
-            @NotNull
-            public Map<String, String> getEnvironment() throws RunBuildException {
-                return getBuildParameters().getEnvironmentVariables();
-            }
-        };
+        return new OpenCoverRunnerCommandLine();
     }
+
 }

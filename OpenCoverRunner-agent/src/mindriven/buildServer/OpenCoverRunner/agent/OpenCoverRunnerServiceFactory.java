@@ -6,6 +6,9 @@ import jetbrains.buildServer.agent.runner.CommandLineBuildServiceFactory;
 import mindriven.buildServer.OpenCoverRunner.common.OpenCoverRunnerConsts;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Kamil
@@ -15,6 +18,11 @@ import org.jetbrains.annotations.NotNull;
  */
 public class OpenCoverRunnerServiceFactory implements CommandLineBuildServiceFactory, AgentBuildRunnerInfo {
 
+    private Logger Log = Logger.getLogger(OpenCoverRunnerServiceFactory.class.getName());
+    public void setLog(Logger log)
+    {
+        this.Log = log;
+    }
     @NotNull
     @Override
     public String getType() {
@@ -23,8 +31,9 @@ public class OpenCoverRunnerServiceFactory implements CommandLineBuildServiceFac
 
     @Override
     public boolean canRun(@NotNull BuildAgentConfiguration buildAgentConfiguration) {
-        //TODO write this
-        return true;
+        boolean result = buildAgentConfiguration.getSystemInfo().isWindows();
+        Log.log(Level.INFO, String.format("OpenCoverRunner can run only on windows machine. Detected windows machine: %s", result));
+        return result;
     }
 
     @NotNull

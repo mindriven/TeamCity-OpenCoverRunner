@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/OpenCoverRunner.iml" filepath="$PROJECT_DIR$/OpenCoverRunner.iml" />
       <module fileurl="file://$PROJECT_DIR$/OpenCoverRunner-agent/OpenCoverRunner-agent.iml" filepath="$PROJECT_DIR$/OpenCoverRunner-agent/OpenCoverRunner-agent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/OpenCoverRunner-agentTests/OpenCoverRunner-agentTests.iml" filepath="$PROJECT_DIR$/OpenCoverRunner-agentTests/OpenCoverRunner-agentTests.iml" />
       <module fileurl="file://$PROJECT_DIR$/OpenCoverRunner-common/OpenCoverRunner-common.iml" filepath="$PROJECT_DIR$/OpenCoverRunner-common/OpenCoverRunner-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/OpenCoverRunner-server/OpenCoverRunner-server.iml" filepath="$PROJECT_DIR$/OpenCoverRunner-server/OpenCoverRunner-server.iml" />
     </modules>
