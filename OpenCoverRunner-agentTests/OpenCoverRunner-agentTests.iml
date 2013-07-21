@@ -25,6 +25,7 @@
     <orderEntry type="library" name="common-api" level="project" />
     <orderEntry type="library" name="server-api" level="project" />
     <orderEntry type="library" name="agent-api" level="project" />
+    <orderEntry type="module" module-name="OpenCoverRunner-common" />
   </component>
 </module>
 

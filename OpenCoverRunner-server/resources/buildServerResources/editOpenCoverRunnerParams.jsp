@@ -11,7 +11,7 @@
     <th><label>Path to OpenCover:</label></th>
     <td>
         <props:textProperty name="${constants.openCoverPath}" className="longField" />
-        <span class="smallNote">OpenCover executable relative to checkout root. Default is ${constants.openCoverDefaultPath}</span>
+        <span class="smallNote">OpenCover executable relative to checkout root. Use * to enable dynamic discovery. Default is ${constants.openCoverDefaultPath}</span>
         <span class="error" id="error_${constants.openCoverPath}"></span></td>
     </td>
 </tr>

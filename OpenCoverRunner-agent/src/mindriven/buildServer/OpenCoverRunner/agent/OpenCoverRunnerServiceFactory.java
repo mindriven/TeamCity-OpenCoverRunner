@@ -1,11 +1,15 @@
 package mindriven.buildServer.OpenCoverRunner.agent;
+import jetbrains.buildServer.RunBuildException;
 import jetbrains.buildServer.agent.AgentBuildRunnerInfo;
 import jetbrains.buildServer.agent.BuildAgentConfiguration;
+import jetbrains.buildServer.agent.runner.BuildServiceAdapter;
 import jetbrains.buildServer.agent.runner.CommandLineBuildService;
 import jetbrains.buildServer.agent.runner.CommandLineBuildServiceFactory;
+import jetbrains.buildServer.agent.runner.ProgramCommandLine;
 import mindriven.buildServer.OpenCoverRunner.common.OpenCoverRunnerConsts;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,7 +20,7 @@ import java.util.logging.Logger;
  * Time: 19:51
  * To change this template use File | Settings | File Templates.
  */
-public class OpenCoverRunnerServiceFactory implements CommandLineBuildServiceFactory, AgentBuildRunnerInfo {
+public class OpenCoverRunnerServiceFactory extends BuildServiceAdapter implements CommandLineBuildServiceFactory, AgentBuildRunnerInfo {
 
     private Logger Log = Logger.getLogger(OpenCoverRunnerServiceFactory.class.getName());
     public void setLog(Logger log)
@@ -39,7 +43,7 @@ public class OpenCoverRunnerServiceFactory implements CommandLineBuildServiceFac
     @NotNull
     @Override
     public CommandLineBuildService createService() {
-        return new OpenCoverRunnerService();
+        return this;
     }
 
     @NotNull
@@ -47,4 +51,16 @@ public class OpenCoverRunnerServiceFactory implements CommandLineBuildServiceFac
     public AgentBuildRunnerInfo getBuildRunnerInfo() {
         return this;
     }
+
+    @NotNull
+    @Override
+    public ProgramCommandLine makeProgramCommandLine() throws RunBuildException {
+        //Map<String, String> buildParams = getRunnerParameters();
+        //this.get
+        //String executablePath = ExecutableProvider.GetPath();
+//        String executablePath = this.GetExecutablePath();
+        return new OpenCoverRunnerCommandLine();
+    }
+
+
 }

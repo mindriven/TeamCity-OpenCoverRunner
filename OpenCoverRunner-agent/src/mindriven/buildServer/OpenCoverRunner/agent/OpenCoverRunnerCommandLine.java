@@ -15,6 +15,7 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public class OpenCoverRunnerCommandLine implements ProgramCommandLine {
+
     @NotNull
     @Override
     public String getExecutablePath() throws RunBuildException {
