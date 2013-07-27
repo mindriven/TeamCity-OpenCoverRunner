@@ -1,7 +1,9 @@
 package mindriven.buildServer.OpenCoverRunner.agent;
 
 import mindriven.buildServer.OpenCoverRunner.common.OpenCoverRunnerConsts;
+import org.apache.tools.ant.DirectoryScanner;
 
+import java.io.FileNotFoundException;
 import java.security.InvalidAlgorithmParameterException;
 import java.util.Map;
 
@@ -15,39 +17,31 @@ import java.util.Map;
 public class ExecutablePathProvider {
 
     private Map<String, String> parameters = null;
-    private FileSystemHelper FSHelper = new FileSystemHelper();
-    private PathsHelper pathsHelper = new PathsHelper();
     private String checkoutDir = null;
+    private DirectoryScanner directoryScanner = null;
     public ExecutablePathProvider(Map<String, String> parameters, String checkoutDir)
     {
         this.parameters = parameters;
         this.checkoutDir = checkoutDir;
     }
 
-    public void setFileSystemHelper(FileSystemHelper helper)
+    public void setDirectoryScanner(DirectoryScanner scanner)
     {
-        this.FSHelper = helper;
+        this.directoryScanner = scanner;
     }
 
-    public void setPathsHelper(PathsHelper helper)
-    {
-        this.pathsHelper = helper;
-    }
-
-//    public String GetDiscoveredPath(String rawPath)
-//    {
-//
-//    }
-
-    public String getExecutablePath() throws InvalidAlgorithmParameterException {
+    public String getExecutablePath() throws FileNotFoundException {
         String rawPath = this.getRawExecutablePath();
-        if(pathsHelper.doesPathUseDiscoveryPattern(rawPath))
+        this.directoryScanner.setIncludes(new String[]{rawPath});
+        this.directoryScanner.setCaseSensitive(false);
+        this.directoryScanner.setBasedir(this.checkoutDir);
+        this.directoryScanner.scan();
+        if(this.directoryScanner.getIncludedFilesCount()!=1)
         {
-            String subPathToScan = this.pathsHelper.extractSubPathForDiscovery(rawPath);
-            String filterFoldersBy = this.pathsHelper.getFolderNameBeginningForDiscovery(rawPath);
-            this.FSHelper.getSubdirectoriesBeginningWith(subPathToScan, filterFoldersBy);
+            throw new FileNotFoundException("Found multiple or none files matching executable path pattern");
         }
-        return null;
+
+        return this.directoryScanner.getIncludedFiles()[0];
     }
 
     public String getRawExecutablePath()

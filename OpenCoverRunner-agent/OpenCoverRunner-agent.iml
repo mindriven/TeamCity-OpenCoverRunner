@@ -28,6 +28,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="ant-1.8.2" level="project" />
   </component>
 </module>
 
