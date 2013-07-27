@@ -39,4 +39,42 @@ public class OpenCoverRunnerConstantsBean {
     {
         return OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_ADDITIONAL_OPTIONS;
     }
+
+    @NotNull
+    public String getOpenCoverWorkingDirectory()
+    {
+        return OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_WORKING_DIRECTORY;
+    }
+
+    @NotNull
+    public String getTestsAssembliesPaths()
+    {
+        return OpenCoverRunnerConsts.SETTINGS_TESTS_ASSEMBLIES_PATHS;
+    }
+
+    @NotNull
+    public String getTestsRunnerPath()
+    {
+        return OpenCoverRunnerConsts.SETTINGS_TESTS_RUNNER_PATH;
+    }
+
+    @NotNull
+    public String getTestsRunnerArguments()
+    {
+        return OpenCoverRunnerConsts.SETTINGS_TESTS_RUNNER_ARGUMENTS;
+    }
+
+    @NotNull
+    public String getPassAssembliesAsSwitch()
+    {
+        return OpenCoverRunnerConsts.SETTINGS_PASS_ASSEMBLIES_AS_SWITCH;
+    }
+
+    @NotNull
+    public String getTestsAssembliesCommandLineSwitch()
+    {
+        return OpenCoverRunnerConsts.SETTINGS_TESTS_ASSEMBLIES_COMMAND_LINE_SWITCH;
+    }
+
+
 }

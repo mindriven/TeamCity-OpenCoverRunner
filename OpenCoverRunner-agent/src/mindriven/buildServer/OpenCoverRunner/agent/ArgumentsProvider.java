@@ -26,12 +26,18 @@ public class ArgumentsProvider {
     public List<String> getArguments()
     {
         List<String> result = new ArrayList<String>();
-        String rawFilters = this.parameters.containsKey(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_FILTERS)?
-                                this.parameters.get(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_FILTERS)
-                                :OpenCoverRunnerConsts.SETTINGS_DEFAULT_OPEN_COVER_FILTERS;
-        String[] parts = rawFilters.split("\\s+");
-        result.add("filter: \""+this.trimAndGlue(" ",parts)+"\"");
+        result.add(this.getFilters());
+        result.add(this.parameters.get(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_ADDITIONAL_OPTIONS));
         return result;
+    }
+
+    private String getFilters()
+    {
+        String rawFilters = this.parameters.containsKey(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_FILTERS)?
+                this.parameters.get(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_FILTERS)
+                :OpenCoverRunnerConsts.SETTINGS_DEFAULT_OPEN_COVER_FILTERS;
+        String[] parts = rawFilters.split("\\s+");
+        return "filter: \""+this.trimAndGlue(" ",parts)+"\"";
     }
 
     private String trimAndGlue(String glue, String[] strArray)

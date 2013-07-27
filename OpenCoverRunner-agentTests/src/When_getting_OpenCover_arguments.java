@@ -52,4 +52,17 @@ public class When_getting_OpenCover_arguments {
 
         Assert.assertTrue(result.contains(expected));
     }
+
+    @Test
+    public void and_user_provided_additional_parameters__user_input_is_included_in_results() throws Exception {
+        Map<String, String> params = new HashMap<String, String>();
+        String userInput = "userInput";
+        params.put(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_ADDITIONAL_OPTIONS, userInput);
+        ArgumentsProvider provider = new ArgumentsProvider(params);
+
+        List<String> result = provider.getArguments();
+
+        Assert.assertTrue(result.contains(userInput));
+    }
+
 }

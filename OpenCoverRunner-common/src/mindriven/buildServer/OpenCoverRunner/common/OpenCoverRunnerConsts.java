@@ -19,4 +19,12 @@ public interface OpenCoverRunnerConsts {
     String SETTINGS_OPEN_COVER_FILTERS = "openCoverRunner.openCoverFilters";
     String SETTINGS_DEFAULT_OPEN_COVER_FILTERS = "+[*]*";
     String SETTINGS_OPEN_COVER_ADDITIONAL_OPTIONS = "openCoverRunner.openCoverAdditionalOptions";
+
+
+    String SETTINGS_OPEN_COVER_WORKING_DIRECTORY = "openCoverRunner.openCoverWorkingDirectory";
+    String SETTINGS_TESTS_ASSEMBLIES_PATHS = "openCoverRunner.testsAssembliesPath";
+    String SETTINGS_TESTS_RUNNER_PATH = "openCoverRunner.testsRunnerPath";
+    String SETTINGS_TESTS_RUNNER_ARGUMENTS = "openCoverRunner.testsRunnerArguments";
+    String SETTINGS_PASS_ASSEMBLIES_AS_SWITCH = "openCoverRunner.passAssembliesAsSwitch";
+    String SETTINGS_TESTS_ASSEMBLIES_COMMAND_LINE_SWITCH = "openCoverRunner.testsAssembliesCommandLineSwitch";
 }
