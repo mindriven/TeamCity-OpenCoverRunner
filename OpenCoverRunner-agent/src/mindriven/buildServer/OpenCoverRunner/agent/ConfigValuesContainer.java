@@ -14,6 +14,7 @@ public class ConfigValuesContainer {
 
     private Map<String, String> definedConfigValues = new HashMap<String, String>();
     private Map<String, String> defaultValues = new HashMap<String, String>() ;
+    private Map<String, String> environmentalVariables = new HashMap<String, String>();
 
     public void setDefaultValuesMapping(Map<String, String> defaultValues)
     {
@@ -33,5 +34,15 @@ public class ConfigValuesContainer {
     public Map<String, String> getDefinedConfigValues()
     {
         return new HashMap<String, String>(this.definedConfigValues);
+    }
+
+    public void setEnvironmentalVariables(Map<String, String> environmentalVariables)
+    {
+        this.environmentalVariables = new HashMap<String, String>(environmentalVariables) ;
+    }
+
+    public Map<String, String> getEnvironmentalVariables()
+    {
+        return new HashMap<String, String>(this.environmentalVariables);
     }
 }

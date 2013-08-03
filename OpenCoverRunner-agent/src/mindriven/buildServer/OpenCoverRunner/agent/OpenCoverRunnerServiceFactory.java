@@ -6,9 +6,11 @@ import jetbrains.buildServer.agent.runner.BuildServiceAdapter;
 import jetbrains.buildServer.agent.runner.CommandLineBuildService;
 import jetbrains.buildServer.agent.runner.CommandLineBuildServiceFactory;
 import jetbrains.buildServer.agent.runner.ProgramCommandLine;
+import mindriven.buildServer.OpenCoverRunner.common.DefaultValuesMap;
 import mindriven.buildServer.OpenCoverRunner.common.OpenCoverRunnerConsts;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -55,7 +57,16 @@ public class OpenCoverRunnerServiceFactory extends BuildServiceAdapter implement
     @NotNull
     @Override
     public ProgramCommandLine makeProgramCommandLine() throws RunBuildException {
-        return new OpenCoverRunnerCommandLine(new ConfigValuesProvider(new ConfigValuesContainer()));
+        DefaultValuesMap defaults = new DefaultValuesMap();
+        defaults.addDefaultValue(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_WORKING_DIRECTORY,
+                                 this.getCheckoutDirectory().toString());
+
+        ConfigValuesContainer configValues = new ConfigValuesContainer();
+        configValues.setEnvironmentalVariables(this.getEnvironmentVariables());
+        configValues.setDefaultValuesMapping(defaults.getMapping());
+        configValues.setDefinedConfigValues(this.getConfigParameters());
+
+        return new OpenCoverRunnerCommandLine(new ConfigValuesProvider(configValues));
     }
 
 

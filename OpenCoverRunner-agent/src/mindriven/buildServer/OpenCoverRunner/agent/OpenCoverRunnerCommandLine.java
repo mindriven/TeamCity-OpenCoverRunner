@@ -3,6 +3,7 @@ package mindriven.buildServer.OpenCoverRunner.agent;
 import jetbrains.buildServer.RunBuildException;
 import jetbrains.buildServer.agent.runner.ProgramCommandLine;
 import mindriven.buildServer.OpenCoverRunner.common.DefaultValuesMap;
+import mindriven.buildServer.OpenCoverRunner.common.OpenCoverRunnerConsts;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.FileNotFoundException;
@@ -20,10 +21,13 @@ public class OpenCoverRunnerCommandLine implements ProgramCommandLine {
 
     private ExecutablePathProvider executablePathProvider;
     private ArgumentsProvider argumentsProvider;
+    private ConfigValuesProvider configValuesProvider;
+
     public OpenCoverRunnerCommandLine(ConfigValuesProvider configValuesProvider)
     {
         this.executablePathProvider = new ExecutablePathProvider(configValuesProvider);
         this.argumentsProvider = new ArgumentsProvider(configValuesProvider);
+        this.configValuesProvider = configValuesProvider;
     }
     @NotNull
     @Override
@@ -38,18 +42,18 @@ public class OpenCoverRunnerCommandLine implements ProgramCommandLine {
     @NotNull
     @Override
     public String getWorkingDirectory() throws RunBuildException {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return configValuesProvider.getValueOrDefault(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_WORKING_DIRECTORY);
     }
 
     @NotNull
     @Override
     public List<String> getArguments() throws RunBuildException {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return this.argumentsProvider.getArguments();
     }
 
     @NotNull
     @Override
     public Map<String, String> getEnvironment() throws RunBuildException {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        return this.configValuesProvider.getEnvironmentalVariables();
     }
 }

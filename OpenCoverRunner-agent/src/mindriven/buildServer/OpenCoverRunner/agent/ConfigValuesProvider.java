@@ -30,4 +30,9 @@ public class ConfigValuesProvider {
         }
         throw new IllegalArgumentException();
     }
+
+    public Map<String, String> getEnvironmentalVariables()
+    {
+        return this.container.getEnvironmentalVariables();
+    }
 }
