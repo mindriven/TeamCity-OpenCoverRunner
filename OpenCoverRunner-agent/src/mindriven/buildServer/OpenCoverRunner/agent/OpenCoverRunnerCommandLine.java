@@ -2,8 +2,10 @@ package mindriven.buildServer.OpenCoverRunner.agent;
 
 import jetbrains.buildServer.RunBuildException;
 import jetbrains.buildServer.agent.runner.ProgramCommandLine;
+import mindriven.buildServer.OpenCoverRunner.common.DefaultValuesMap;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Map;
 
@@ -16,10 +18,21 @@ import java.util.Map;
  */
 public class OpenCoverRunnerCommandLine implements ProgramCommandLine {
 
+    private ExecutablePathProvider executablePathProvider;
+    private ArgumentsProvider argumentsProvider;
+    public OpenCoverRunnerCommandLine(ConfigValuesProvider configValuesProvider)
+    {
+        this.executablePathProvider = new ExecutablePathProvider(configValuesProvider);
+        this.argumentsProvider = new ArgumentsProvider(configValuesProvider);
+    }
     @NotNull
     @Override
     public String getExecutablePath() throws RunBuildException {
-        return null;  //To change body of implemented methods use File | Settings | File Templates.
+        try {
+            return this.executablePathProvider.getExecutablePath();
+        } catch (FileNotFoundException e) {
+            throw new RunBuildException(e);
+        }
     }
 
     @NotNull

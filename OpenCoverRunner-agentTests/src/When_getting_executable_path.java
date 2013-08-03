@@ -37,15 +37,16 @@ public class When_getting_executable_path {
     @Before
     public void Initialize()
     {
-        this.pathProvider = new ExecutablePathProvider(null, null);
+        this.pathProvider = new ExecutablePathProvider(null);
     }
 
     @Test
     public void directories_are_scanned_for_executable_based_on_user_provided_path() throws Exception {
-        Map<String, String> params = new HashMap<String, String>();
+
         String userProvidedPath = "somePath";
-        params.put(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_PATH, userProvidedPath);
-        ExecutablePathProvider provider = new ExecutablePathProvider(params, null);
+        ConfigValuesProvider configProvider = mock(ConfigValuesProvider.class);
+        when(configProvider.getValueOrDefault(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_PATH)).thenReturn(userProvidedPath);
+        ExecutablePathProvider provider = new ExecutablePathProvider(configProvider);
         DirectoryScanner scanner = mock(DirectoryScanner.class);
         provider.setDirectoryScanner(scanner);
         when(scanner.getIncludedFilesCount()).thenReturn(1);
@@ -62,7 +63,8 @@ public class When_getting_executable_path {
     @Test
     public void casing_does_not_matter() throws Exception {
         Map<String, String> params = new HashMap<String, String>();
-        ExecutablePathProvider provider = new ExecutablePathProvider(params, null);
+        ConfigValuesProvider configProvider = mock(ConfigValuesProvider.class);
+        ExecutablePathProvider provider = new ExecutablePathProvider(configProvider);
         DirectoryScanner scanner = mock(DirectoryScanner.class);
         provider.setDirectoryScanner(scanner);
         when(scanner.getIncludedFilesCount()).thenReturn(1);
@@ -77,9 +79,11 @@ public class When_getting_executable_path {
 
     @Test
     public void base_path_for_search_is_checkout_dir() throws Exception {
-        Map<String, String> params = new HashMap<String, String>();
         String basePath = "basePath";
-        ExecutablePathProvider provider = new ExecutablePathProvider(params, basePath);
+        ConfigValuesProvider configProvider = mock(ConfigValuesProvider.class);
+        when(configProvider.getValueOrDefault(OpenCoverRunnerConsts.SETTINGS_TEAM_CITY_CHECKOUT_DIR))
+                            .thenReturn(basePath);
+        ExecutablePathProvider provider = new ExecutablePathProvider(configProvider);
         DirectoryScanner scanner = mock(DirectoryScanner.class);
         provider.setDirectoryScanner(scanner);
         when(scanner.getIncludedFilesCount()).thenReturn(1);
@@ -94,8 +98,8 @@ public class When_getting_executable_path {
 
     @Test(expected = FileNotFoundException.class)
     public void and_found_not_1_matching_file__exception_is_thrown() throws Exception {
-        Map<String, String> params = new HashMap<String, String>();
-        ExecutablePathProvider provider = new ExecutablePathProvider(params, null);
+        ConfigValuesProvider configProvider = mock(ConfigValuesProvider.class);
+        ExecutablePathProvider provider = new ExecutablePathProvider(configProvider);
         DirectoryScanner scanner = mock(DirectoryScanner.class);
         provider.setDirectoryScanner(scanner);
         when(scanner.getIncludedFilesCount()).thenReturn(3);
@@ -106,8 +110,8 @@ public class When_getting_executable_path {
 
     @Test
     public void and_found_1_matching_file__it_gets_returned() throws Exception {
-        Map<String, String> params = new HashMap<String, String>();
-        ExecutablePathProvider provider = new ExecutablePathProvider(params, null);
+        ConfigValuesProvider configProvider = mock(ConfigValuesProvider.class);
+        ExecutablePathProvider provider = new ExecutablePathProvider(configProvider);
         DirectoryScanner scanner = mock(DirectoryScanner.class);
         when(scanner.getIncludedFilesCount()).thenReturn(1);
         String matchedPath = "matchedPath";
@@ -117,27 +121,5 @@ public class When_getting_executable_path {
         String result = provider.getExecutablePath();
 
         Assert.assertEquals(matchedPath, result);
-    }
-
-    @Test
-    public void and_user_provided_path__raw_path_is_this_provided_path() throws Exception {
-        Map<String, String> params = new HashMap<String, String>();
-        String userProvidedPath = "somePath";
-        params.put(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_PATH, userProvidedPath);
-        ExecutablePathProvider provider = new ExecutablePathProvider(params, null);
-
-        String result = provider.getRawExecutablePath();
-
-        Assert.assertEquals(result, userProvidedPath);
-    }
-
-    @Test
-    public void and_user_didnt_provided_path__raw_path_is_default_path() throws Exception {
-        Map<String, String> params = new HashMap<String, String>();
-        ExecutablePathProvider provider = new ExecutablePathProvider(params, null);
-
-        String result = provider.getRawExecutablePath();
-
-        Assert.assertEquals(result, OpenCoverRunnerConsts.SETTINGS_DEFAULT_OPEN_COVER_PATH);
     }
 }

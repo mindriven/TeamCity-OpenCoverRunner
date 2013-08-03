@@ -16,26 +16,24 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public class ArgumentsProvider {
-    private Map<String, String> parameters = null;
+    private ConfigValuesProvider configProvider = null;
 
-    public ArgumentsProvider(Map<String, String> parameters)
+    public ArgumentsProvider(ConfigValuesProvider configProvider)
     {
-        this.parameters = parameters;
+        this.configProvider = configProvider;
     }
 
     public List<String> getArguments()
     {
         List<String> result = new ArrayList<String>();
         result.add(this.getFilters());
-        result.add(this.parameters.get(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_ADDITIONAL_OPTIONS));
+        result.add(this.configProvider.getValueOrDefault(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_ADDITIONAL_OPTIONS));
         return result;
     }
 
     private String getFilters()
     {
-        String rawFilters = this.parameters.containsKey(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_FILTERS)?
-                this.parameters.get(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_FILTERS)
-                :OpenCoverRunnerConsts.SETTINGS_DEFAULT_OPEN_COVER_FILTERS;
+        String rawFilters = this.configProvider.getValueOrDefault(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_FILTERS);
         String[] parts = rawFilters.split("\\s+");
         return "filter: \""+this.trimAndGlue(" ",parts)+"\"";
     }

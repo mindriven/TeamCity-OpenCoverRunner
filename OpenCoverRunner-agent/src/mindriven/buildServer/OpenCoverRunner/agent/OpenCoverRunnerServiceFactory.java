@@ -55,11 +55,7 @@ public class OpenCoverRunnerServiceFactory extends BuildServiceAdapter implement
     @NotNull
     @Override
     public ProgramCommandLine makeProgramCommandLine() throws RunBuildException {
-        //Map<String, String> buildParams = getRunnerParameters();
-        //this.get
-        //String executablePath = ExecutableProvider.GetPath();
-//        String executablePath = this.GetExecutablePath();
-        return new OpenCoverRunnerCommandLine();
+        return new OpenCoverRunnerCommandLine(new ConfigValuesProvider(new ConfigValuesContainer()));
     }
 
 

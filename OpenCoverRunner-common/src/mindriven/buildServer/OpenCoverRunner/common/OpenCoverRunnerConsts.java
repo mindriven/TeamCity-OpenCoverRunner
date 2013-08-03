@@ -12,10 +12,8 @@ public interface OpenCoverRunnerConsts {
     String RUNNER_DISPLAY_NAME = "OpenCover runner";
     String RUNNER_DESCRIPTION = "Runs OpenCover and publishes coverage to TC";
 
-    String PATH_DISCOVERY_PLACEHOLDER = "*";
-
     String SETTINGS_OPEN_COVER_PATH = "openCoverRunner.openCoverPath";
-    String SETTINGS_DEFAULT_OPEN_COVER_PATH = "packages/OpenCover"+PATH_DISCOVERY_PLACEHOLDER+"/OpenCover.Console.exe";
+    String SETTINGS_DEFAULT_OPEN_COVER_PATH = "packages/OpenCover*/OpenCover.Console.exe";
     String SETTINGS_OPEN_COVER_FILTERS = "openCoverRunner.openCoverFilters";
     String SETTINGS_DEFAULT_OPEN_COVER_FILTERS = "+[*]*";
     String SETTINGS_OPEN_COVER_ADDITIONAL_OPTIONS = "openCoverRunner.openCoverAdditionalOptions";
@@ -27,4 +25,6 @@ public interface OpenCoverRunnerConsts {
     String SETTINGS_TESTS_RUNNER_ARGUMENTS = "openCoverRunner.testsRunnerArguments";
     String SETTINGS_PASS_ASSEMBLIES_AS_SWITCH = "openCoverRunner.passAssembliesAsSwitch";
     String SETTINGS_TESTS_ASSEMBLIES_COMMAND_LINE_SWITCH = "openCoverRunner.testsAssembliesCommandLineSwitch";
+
+    String SETTINGS_TEAM_CITY_CHECKOUT_DIR = "openCoverRunner.TeamCityCheckoutDir";
 }

@@ -1,5 +1,6 @@
 package mindriven.buildServer.OpenCoverRunner.agent;
 
+import mindriven.buildServer.OpenCoverRunner.common.DefaultValuesMap;
 import mindriven.buildServer.OpenCoverRunner.common.OpenCoverRunnerConsts;
 import org.apache.tools.ant.DirectoryScanner;
 
@@ -17,12 +18,12 @@ import java.util.Map;
 public class ExecutablePathProvider {
 
     private Map<String, String> parameters = null;
-    private String checkoutDir = null;
     private DirectoryScanner directoryScanner = null;
-    public ExecutablePathProvider(Map<String, String> parameters, String checkoutDir)
+    private ConfigValuesProvider configProvider;
+
+    public ExecutablePathProvider(ConfigValuesProvider configProvider)
     {
-        this.parameters = parameters;
-        this.checkoutDir = checkoutDir;
+        this.configProvider = configProvider;
     }
 
     public void setDirectoryScanner(DirectoryScanner scanner)
@@ -31,10 +32,13 @@ public class ExecutablePathProvider {
     }
 
     public String getExecutablePath() throws FileNotFoundException {
-        String rawPath = this.getRawExecutablePath();
+        String pathKey = OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_PATH;
+        String rawPath = this.configProvider.getValueOrDefault(pathKey);
+        String checkoutDirKey = OpenCoverRunnerConsts.SETTINGS_TEAM_CITY_CHECKOUT_DIR;
+        String checkoutDir = this.configProvider.getValueOrDefault(checkoutDirKey);
         this.directoryScanner.setIncludes(new String[]{rawPath});
         this.directoryScanner.setCaseSensitive(false);
-        this.directoryScanner.setBasedir(this.checkoutDir);
+        this.directoryScanner.setBasedir(checkoutDir);
         this.directoryScanner.scan();
         if(this.directoryScanner.getIncludedFilesCount()!=1)
         {
@@ -42,15 +46,5 @@ public class ExecutablePathProvider {
         }
 
         return this.directoryScanner.getIncludedFiles()[0];
-    }
-
-    public String getRawExecutablePath()
-    {
-        String key = OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_PATH;
-        String userProvidedPath = OpenCoverRunnerConsts.SETTINGS_DEFAULT_OPEN_COVER_PATH;
-        if(this.parameters.containsKey(key))
-            userProvidedPath = this.parameters.get(key);
-
-        return userProvidedPath;
     }
 }
