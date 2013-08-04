@@ -58,13 +58,15 @@ public class OpenCoverRunnerServiceFactory extends BuildServiceAdapter implement
     @Override
     public ProgramCommandLine makeProgramCommandLine() throws RunBuildException {
         DefaultValuesMap defaults = new DefaultValuesMap();
+        String checkoutDir = this.getCheckoutDirectory().toString();
         defaults.addDefaultValue(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_WORKING_DIRECTORY,
-                                 this.getCheckoutDirectory().toString());
-
+                                 checkoutDir);
         ConfigValuesContainer configValues = new ConfigValuesContainer();
         configValues.setEnvironmentalVariables(this.getEnvironmentVariables());
         configValues.setDefaultValuesMapping(defaults.getMapping());
-        configValues.setDefinedConfigValues(this.getConfigParameters());
+        Map<String, String> configuration = new HashMap<String, String>(this.getConfigParameters());
+        configuration.put(OpenCoverRunnerConsts.SETTINGS_TEAM_CITY_CHECKOUT_DIR, checkoutDir);
+        configValues.setDefinedConfigValues(configuration);
 
         return new OpenCoverRunnerCommandLine(new ConfigValuesProvider(configValues));
     }

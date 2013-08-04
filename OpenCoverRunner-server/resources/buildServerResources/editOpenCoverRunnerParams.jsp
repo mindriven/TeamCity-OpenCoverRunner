@@ -49,7 +49,7 @@
 
 <l:settingsGroup title="Tests assemblies">
 <tr>
-    <th><label>Filters:</label></th>
+    <th><label>Test assemblies:</label></th>
     <td>
         <props:multilineProperty name="${constants.testsAssembliesPaths}"
                                        className="longField"
