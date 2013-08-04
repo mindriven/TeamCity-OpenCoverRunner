@@ -19,7 +19,7 @@ public class ConfigValuesProvider {
 
     public String getValueOrDefault(String key)
     {
-        Map<String, String> mapping = this.container.getDefaultValuesMapping();
+        Map<String, String> mapping = this.container.getDefinedConfigValues();
         if(mapping.containsKey(key))
             return mapping.get(key);
         else
@@ -28,7 +28,8 @@ public class ConfigValuesProvider {
             if(defaults.containsKey(key))
                 return defaults.get(key);
         }
-        throw new IllegalArgumentException();
+        String message = "value with key: '" + key + "' was not found neither in config values nor in default values. Configuration was: "+this.container.toString();
+        throw new IllegalArgumentException(message);
     }
 
     public Map<String, String> getEnvironmentalVariables()

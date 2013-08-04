@@ -1,6 +1,7 @@
 package mindriven.buildServer.OpenCoverRunner.agent;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -13,8 +14,9 @@ import java.util.Map;
 public class ConfigValuesContainer {
 
     private Map<String, String> definedConfigValues = new HashMap<String, String>();
-    private Map<String, String> defaultValues = new HashMap<String, String>() ;
+    private Map<String, String> defaultValues = new HashMap<String, String>();
     private Map<String, String> environmentalVariables = new HashMap<String, String>();
+    private MapDescriptionBuilder mapDescriptionBuilder = new MapDescriptionBuilder();
 
     public void setDefaultValuesMapping(Map<String, String> defaultValues)
     {
@@ -44,5 +46,20 @@ public class ConfigValuesContainer {
     public Map<String, String> getEnvironmentalVariables()
     {
         return new HashMap<String, String>(this.environmentalVariables);
+    }
+
+    public void setMapDescriptionBuilder(MapDescriptionBuilder builder)
+    {
+        this.mapDescriptionBuilder = builder;
+    }
+
+    @Override
+    public String toString()
+    {
+        String config = this.mapDescriptionBuilder.getDescription(definedConfigValues,"Config values");
+        String defaults = this.mapDescriptionBuilder.getDescription(defaultValues,"Default values");
+        String env = this.mapDescriptionBuilder.getDescription(environmentalVariables, "Environmental variables");
+
+        return config+defaults+env;
     }
 }

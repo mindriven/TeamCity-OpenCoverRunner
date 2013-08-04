@@ -20,6 +20,9 @@ public class DefaultValuesMap {
                         OpenCoverRunnerConsts.SETTINGS_DEFAULT_OPEN_COVER_FILTERS);
         defaultsMapping.put(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_PATH,
                         OpenCoverRunnerConsts.SETTINGS_DEFAULT_OPEN_COVER_PATH);
+
+        defaultsMapping.put(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_ADDITIONAL_OPTIONS,
+                "");
     }
 
     public Map<String, String> getMapping()
