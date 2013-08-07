@@ -49,7 +49,7 @@ public class OpenCoverRunType extends jetbrains.buildServer.serverSide.RunType {
     @Nullable
     @Override
     public PropertiesProcessor getRunnerPropertiesProcessor() {
-        return new OpenCoverPropertiesProcessor();
+        return new OpenCoverRunTypeParametersProcessor();
     }
 
     @Nullable

@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/OpenCoverRunner-agentTests/OpenCoverRunner-agentTests.iml" filepath="$PROJECT_DIR$/OpenCoverRunner-agentTests/OpenCoverRunner-agentTests.iml" />
       <module fileurl="file://$PROJECT_DIR$/OpenCoverRunner-common/OpenCoverRunner-common.iml" filepath="$PROJECT_DIR$/OpenCoverRunner-common/OpenCoverRunner-common.iml" />
       <module fileurl="file://$PROJECT_DIR$/OpenCoverRunner-server/OpenCoverRunner-server.iml" filepath="$PROJECT_DIR$/OpenCoverRunner-server/OpenCoverRunner-server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/OpenCoverRunner-serverTests/OpenCoverRunner-serverTests.iml" filepath="$PROJECT_DIR$/OpenCoverRunner-serverTests/OpenCoverRunner-serverTests.iml" />
     </modules>
   </component>
 </project>
