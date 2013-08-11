@@ -1,26 +1,10 @@
-import jetbrains.buildServer.agent.BuildAgentConfiguration;
-import jetbrains.buildServer.agent.BuildAgentSystemInfo;
-import jetbrains.buildServer.serverSide.RunTypeRegistry;
-import jetbrains.buildServer.web.openapi.PluginDescriptor;
-import junit.extensions.TestSetup;
 import junit.framework.Assert;
 import mindriven.buildServer.OpenCoverRunner.agent.*;
-import mindriven.buildServer.OpenCoverRunner.server.OpenCoverRunType;
-import org.apache.tools.ant.DirectoryScanner;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.FileNotFoundException;
-import java.util.Dictionary;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import mindriven.buildServer.OpenCoverRunner.common.OpenCoverRunnerConsts;
 import org.mockito.ArgumentCaptor;
-import org.mockito.MockSettings;
-import org.mockito.listeners.InvocationListener;
-import org.mockito.stubbing.Answer;
 
 import static org.mockito.Mockito.*;
 
@@ -47,34 +31,15 @@ public class When_getting_executable_path {
         ConfigValuesProvider configProvider = mock(ConfigValuesProvider.class);
         when(configProvider.getValueOrDefault(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_PATH)).thenReturn(userProvidedPath);
         ExecutablePathProvider provider = new ExecutablePathProvider(configProvider);
-        DirectoryScanner scanner = mock(DirectoryScanner.class);
+        OpenCoverRunnerDirectoryScanner scanner = mock(OpenCoverRunnerDirectoryScanner.class);
         provider.setDirectoryScanner(scanner);
-        when(scanner.getIncludedFilesCount()).thenReturn(1);
-        when(scanner.getIncludedFiles()).thenReturn(new String[]{""});
 
         provider.getExecutablePath();
 
-        ArgumentCaptor<String[]> argument = ArgumentCaptor.forClass(String[].class);
-        verify(scanner).setIncludes(argument.capture());
-        Assert.assertEquals(userProvidedPath, argument.getValue()[0]);
-        verify(scanner).scan();
-    }
-
-    @Test
-    public void casing_does_not_matter() throws Exception {
-        Map<String, String> params = new HashMap<String, String>();
-        ConfigValuesProvider configProvider = mock(ConfigValuesProvider.class);
-        ExecutablePathProvider provider = new ExecutablePathProvider(configProvider);
-        DirectoryScanner scanner = mock(DirectoryScanner.class);
-        provider.setDirectoryScanner(scanner);
-        when(scanner.getIncludedFilesCount()).thenReturn(1);
-        when(scanner.getIncludedFiles()).thenReturn(new String[]{""});
-
-        provider.getExecutablePath();
-
-        ArgumentCaptor<Boolean> argument = ArgumentCaptor.forClass(Boolean.class);
-        verify(scanner).setCaseSensitive(argument.capture());
-        Assert.assertFalse(argument.getValue());
+        ArgumentCaptor<String> argument = ArgumentCaptor.forClass(String.class);
+        ArgumentCaptor<String> argument2 = ArgumentCaptor.forClass(String.class);
+        verify(scanner).scanForSinglePath(argument2.capture(), argument.capture());
+        Assert.assertEquals(userProvidedPath, argument.getValue());
     }
 
     @Test
@@ -84,42 +49,14 @@ public class When_getting_executable_path {
         when(configProvider.getValueOrDefault(OpenCoverRunnerConsts.SETTINGS_TEAM_CITY_CHECKOUT_DIR))
                             .thenReturn(basePath);
         ExecutablePathProvider provider = new ExecutablePathProvider(configProvider);
-        DirectoryScanner scanner = mock(DirectoryScanner.class);
+        OpenCoverRunnerDirectoryScanner scanner = mock(OpenCoverRunnerDirectoryScanner.class);
         provider.setDirectoryScanner(scanner);
-        when(scanner.getIncludedFilesCount()).thenReturn(1);
-        when(scanner.getIncludedFiles()).thenReturn(new String[]{""});
 
         provider.getExecutablePath();
 
         ArgumentCaptor<String> argument = ArgumentCaptor.forClass(String.class);
-        verify(scanner).setBasedir(argument.capture());
+        ArgumentCaptor<String> argument2 = ArgumentCaptor.forClass(String.class);
+        verify(scanner).scanForSinglePath(argument.capture(), argument2.capture());
         Assert.assertEquals(basePath, argument.getValue());
-    }
-
-    @Test(expected = FileNotFoundException.class)
-    public void and_found_not_1_matching_file__exception_is_thrown() throws Exception {
-        ConfigValuesProvider configProvider = mock(ConfigValuesProvider.class);
-        ExecutablePathProvider provider = new ExecutablePathProvider(configProvider);
-        DirectoryScanner scanner = mock(DirectoryScanner.class);
-        provider.setDirectoryScanner(scanner);
-        when(scanner.getIncludedFilesCount()).thenReturn(3);
-        when(scanner.getIncludedFiles()).thenReturn(new String[]{""});
-
-        provider.getExecutablePath();
-    }
-
-    @Test
-    public void and_found_1_matching_file__it_gets_returned() throws Exception {
-        ConfigValuesProvider configProvider = mock(ConfigValuesProvider.class);
-        ExecutablePathProvider provider = new ExecutablePathProvider(configProvider);
-        DirectoryScanner scanner = mock(DirectoryScanner.class);
-        when(scanner.getIncludedFilesCount()).thenReturn(1);
-        String matchedPath = "matchedPath";
-        when(scanner.getIncludedFiles()).thenReturn(new String[]{matchedPath});
-        provider.setDirectoryScanner(scanner);
-
-        String result = provider.getExecutablePath();
-
-        Assert.assertEquals(matchedPath, result);
     }
 }

@@ -17,17 +17,30 @@ import java.util.*;
  */
 public class OpenCoverRunTypeParametersProcessor implements PropertiesProcessor {
 
+    private Map<String, String> settings;
+    private List<InvalidProperty> result = new Vector<InvalidProperty>();
+
     @Override
     public Collection<InvalidProperty> process(Map<String, String> settings) {
-        List<InvalidProperty> result = new Vector<InvalidProperty>();
-        this.checkProperty(OpenCoverRunnerConsts.SETTINGS_TESTS_ASSEMBLIES_PATHS, settings, result);
-        this.checkProperty(OpenCoverRunnerConsts.SETTINGS_TESTS_RUNNER_PATH, settings, result);
-        return result;
+        this.settings = settings;
+        this.checkProperty(OpenCoverRunnerConsts.SETTINGS_TESTS_ASSEMBLIES_PATHS, null);
+        this.checkProperty(OpenCoverRunnerConsts.SETTINGS_TESTS_RUNNER_PATH, null);
+        if(PropertiesUtil.getBoolean(settings.get(OpenCoverRunnerConsts.SETTINGS_PASS_ASSEMBLIES_AS_SWITCH)))
+        {
+            checkProperty(OpenCoverRunnerConsts.SETTINGS_TESTS_ASSEMBLIES_COMMAND_LINE_SWITCH, null);
+        }
+
+        return this.result;
     }
 
-    private void checkProperty(String key, Map<String, String> settings, List<InvalidProperty> result)
+    private void checkProperty(String key,
+                               String messageToAdd)
     {
-        String messageToAdd = "Required, without this tests cannot be run";
+        if(messageToAdd==null || messageToAdd.isEmpty())
+        {
+            messageToAdd = "Required, without this tests cannot be run";
+        }
+
         if(!settings.containsKey(key))
         {
             result.add(new InvalidProperty(key, messageToAdd));

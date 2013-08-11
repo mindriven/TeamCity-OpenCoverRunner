@@ -1,12 +1,8 @@
 package mindriven.buildServer.OpenCoverRunner.agent;
 
-import mindriven.buildServer.OpenCoverRunner.common.DefaultValuesMap;
 import mindriven.buildServer.OpenCoverRunner.common.OpenCoverRunnerConsts;
-import org.apache.tools.ant.DirectoryScanner;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.security.InvalidAlgorithmParameterException;
 import java.util.Map;
 
 /**
@@ -19,7 +15,7 @@ import java.util.Map;
 public class ExecutablePathProvider {
 
     private Map<String, String> parameters = null;
-    private DirectoryScanner directoryScanner = new DirectoryScanner();
+    private OpenCoverRunnerDirectoryScanner directoryScanner = new OpenCoverRunnerDirectoryScanner();
     private ConfigValuesProvider configProvider;
 
     public ExecutablePathProvider(ConfigValuesProvider configProvider)
@@ -27,7 +23,7 @@ public class ExecutablePathProvider {
         this.configProvider = configProvider;
     }
 
-    public void setDirectoryScanner(DirectoryScanner scanner)
+    public void setDirectoryScanner(OpenCoverRunnerDirectoryScanner scanner)
     {
         this.directoryScanner = scanner;
     }
@@ -37,23 +33,6 @@ public class ExecutablePathProvider {
         String path = this.configProvider.getValueOrDefault(pathKey);
         String checkoutDirKey = OpenCoverRunnerConsts.SETTINGS_TEAM_CITY_CHECKOUT_DIR;
         String checkoutDir = this.configProvider.getValueOrDefault(checkoutDirKey);
-        this.directoryScanner.setIncludes(new String[]{path});
-        this.directoryScanner.setCaseSensitive(false);
-        this.directoryScanner.setBasedir(checkoutDir);
-        this.directoryScanner.scan();
-        if(this.directoryScanner.getIncludedFilesCount()!=1)
-        {
-            this.throwScanningResultInconclusiveException(path);
-        }
-
-        return new File(this.directoryScanner.getBasedir(), this.directoryScanner.getIncludedFiles()[0]).getPath();
-    }
-
-    private void throwScanningResultInconclusiveException(String path) throws FileNotFoundException {
-        String message = "Found multiple or none files("+this.directoryScanner.getIncludedFilesCount()+") matching OpenCover executable path pattern";
-        message+="\n\rSearched in: "+this.directoryScanner.getBasedir();
-        message+="\n\rSearched for: "+path;
-        throw new FileNotFoundException(message);
-
+        return this.directoryScanner.scanForSinglePath(checkoutDir, path);
     }
 }

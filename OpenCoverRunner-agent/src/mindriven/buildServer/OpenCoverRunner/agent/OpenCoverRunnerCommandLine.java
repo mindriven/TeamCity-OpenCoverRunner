@@ -48,7 +48,11 @@ public class OpenCoverRunnerCommandLine implements ProgramCommandLine {
     @NotNull
     @Override
     public List<String> getArguments() throws RunBuildException {
-        return this.argumentsProvider.getArguments();
+        try {
+            return this.argumentsProvider.getArguments();
+        } catch (FileNotFoundException e) {
+            throw new RunBuildException(e);
+        }
     }
 
     @NotNull

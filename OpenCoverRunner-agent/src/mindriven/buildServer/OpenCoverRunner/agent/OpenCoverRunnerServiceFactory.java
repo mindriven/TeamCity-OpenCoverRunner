@@ -1,4 +1,5 @@
 package mindriven.buildServer.OpenCoverRunner.agent;
+import jetbrains.buildServer.BuildProblemData;
 import jetbrains.buildServer.RunBuildException;
 import jetbrains.buildServer.agent.AgentBuildRunnerInfo;
 import jetbrains.buildServer.agent.BuildAgentConfiguration;
@@ -6,6 +7,7 @@ import jetbrains.buildServer.agent.runner.BuildServiceAdapter;
 import jetbrains.buildServer.agent.runner.CommandLineBuildService;
 import jetbrains.buildServer.agent.runner.CommandLineBuildServiceFactory;
 import jetbrains.buildServer.agent.runner.ProgramCommandLine;
+import jetbrains.buildServer.messages.BuildMessage1;
 import mindriven.buildServer.OpenCoverRunner.common.DefaultValuesMap;
 import mindriven.buildServer.OpenCoverRunner.common.OpenCoverRunnerConsts;
 import org.jetbrains.annotations.NotNull;
@@ -64,7 +66,8 @@ public class OpenCoverRunnerServiceFactory extends BuildServiceAdapter implement
         ConfigValuesContainer configValues = new ConfigValuesContainer();
         configValues.setEnvironmentalVariables(this.getEnvironmentVariables());
         configValues.setDefaultValuesMapping(defaults.getMapping());
-        Map<String, String> configuration = new HashMap<String, String>(this.getConfigParameters());
+
+        Map<String, String> configuration = new HashMap<String, String>(this.getRunnerParameters());
         configuration.put(OpenCoverRunnerConsts.SETTINGS_TEAM_CITY_CHECKOUT_DIR, checkoutDir);
         configValues.setDefinedConfigValues(configuration);
 

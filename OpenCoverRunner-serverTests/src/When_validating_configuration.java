@@ -62,6 +62,30 @@ public class When_validating_configuration {
         Assert.assertFalse(containsPropertyWithName(result, OpenCoverRunnerConsts.SETTINGS_TESTS_ASSEMBLIES_PATHS));
     }
 
+    @Test
+    public void and_assemblies_as_switch_is_selected_but_no_switch_is_provided__switch_it_is_invalid() throws Exception
+    {
+        HashMap<String, String> properties = new HashMap<String, String>();
+        properties.put(OpenCoverRunnerConsts.SETTINGS_PASS_ASSEMBLIES_AS_SWITCH, "true");
+        OpenCoverRunTypeParametersProcessor validator = new OpenCoverRunTypeParametersProcessor();
+
+        Collection<InvalidProperty> result = validator.process(properties);
+
+        Assert.assertTrue(containsPropertyWithName(result, OpenCoverRunnerConsts.SETTINGS_TESTS_ASSEMBLIES_COMMAND_LINE_SWITCH));
+    }
+
+    @Test
+    public void and_assemblies_as_switch_is_not_selected__switch_is_valid() throws Exception
+    {
+        HashMap<String, String> properties = new HashMap<String, String>();
+        properties.put(OpenCoverRunnerConsts.SETTINGS_PASS_ASSEMBLIES_AS_SWITCH, "");
+        OpenCoverRunTypeParametersProcessor validator = new OpenCoverRunTypeParametersProcessor();
+
+        Collection<InvalidProperty> result = validator.process(properties);
+
+        Assert.assertFalse(containsPropertyWithName(result, OpenCoverRunnerConsts.SETTINGS_TESTS_ASSEMBLIES_COMMAND_LINE_SWITCH));
+    }
+
     private Boolean containsPropertyWithName(Collection<InvalidProperty> collection, String name)
     {
         Iterator<InvalidProperty> iterator = collection.iterator();
