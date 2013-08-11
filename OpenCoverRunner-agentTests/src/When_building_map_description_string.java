@@ -1,7 +1,5 @@
-import jetbrains.buildServer.serverSide.SRunnerContext;
 import junit.framework.Assert;
-import mindriven.buildServer.OpenCoverRunner.agent.ConfigValuesContainer;
-import mindriven.buildServer.OpenCoverRunner.agent.MapDescriptionBuilder;
+import mindriven.buildServer.OpenCoverRunner.agent.Utils.MapDescriptionBuilder;
 import org.junit.Test;
 
 import java.util.HashMap;

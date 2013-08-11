@@ -20,6 +20,11 @@ public class DefaultValuesMap {
                         OpenCoverRunnerConsts.SETTINGS_DEFAULT_OPEN_COVER_FILTERS);
         defaultsMapping.put(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_PATH,
                         OpenCoverRunnerConsts.SETTINGS_DEFAULT_OPEN_COVER_PATH);
+        defaultsMapping.put(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_OUTPUT_FILE_PATH,
+                OpenCoverRunnerConsts.SETTINGS_DEFAULT_OPEN_COVER_OUTPUT_FILE_PATH);
+        defaultsMapping.put(OpenCoverRunnerConsts.SETTINGS_REPORTS_GENERATOR_OUTPUT_DIR,
+                OpenCoverRunnerConsts.SETTINGS_DEFAULT_REPORTS_GENERATOR_OUTPUT_DIR);
+
         defaultsMapping.put(OpenCoverRunnerConsts.SETTINGS_PASS_ASSEMBLIES_AS_SWITCH,
                 "false");
         defaultsMapping.put(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_ADDITIONAL_OPTIONS, "");

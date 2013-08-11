@@ -1,14 +1,12 @@
 import junit.framework.Assert;
 import mindriven.buildServer.OpenCoverRunner.agent.ConfigValuesContainer;
-import mindriven.buildServer.OpenCoverRunner.agent.ConfigValuesProvider;
-import mindriven.buildServer.OpenCoverRunner.agent.MapDescriptionBuilder;
+import mindriven.buildServer.OpenCoverRunner.agent.Utils.MapDescriptionBuilder;
 import org.junit.Test;
 
 import java.util.HashMap;
 
 import static org.mockito.Matchers.anyMap;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Matchers.same;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;

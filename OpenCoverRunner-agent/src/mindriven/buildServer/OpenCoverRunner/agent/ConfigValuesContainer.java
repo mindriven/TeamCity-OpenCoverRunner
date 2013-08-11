@@ -1,7 +1,8 @@
 package mindriven.buildServer.OpenCoverRunner.agent;
 
+import mindriven.buildServer.OpenCoverRunner.agent.Utils.MapDescriptionBuilder;
+
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 /**

@@ -1,17 +1,13 @@
 import junit.framework.Assert;
-import mindriven.buildServer.OpenCoverRunner.agent.ArgumentsProvider;
+import mindriven.buildServer.OpenCoverRunner.agent.OpenCover.ArgumentsProvider;
 import mindriven.buildServer.OpenCoverRunner.agent.ConfigValuesProvider;
-import mindriven.buildServer.OpenCoverRunner.agent.OpenCoverRunnerDirectoryScanner;
-import mindriven.buildServer.OpenCoverRunner.agent.TestsAssembliesPathsProvider;
+import mindriven.buildServer.OpenCoverRunner.agent.Utils.OpenCoverRunnerDirectoryScanner;
+import mindriven.buildServer.OpenCoverRunner.agent.OpenCover.TestsAssembliesPathsProvider;
 import mindriven.buildServer.OpenCoverRunner.common.OpenCoverRunnerConsts;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.ArgumentCaptor;
 
-import java.io.FileNotFoundException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.*;
@@ -107,6 +103,8 @@ public class When_getting_OpenCover_arguments {
                 .thenReturn("otherConfigValueInput");
         when(configProvider.getValueOrDefault(OpenCoverRunnerConsts.SETTINGS_TEAM_CITY_CHECKOUT_DIR))
                 .thenReturn(checkoutDir);
+        when(configProvider.getValueOrDefault(OpenCoverRunnerConsts.SETTINGS_TESTS_RUNNER_ARGUMENTS))
+                .thenReturn("");
         OpenCoverRunnerDirectoryScanner scanner = mock(OpenCoverRunnerDirectoryScanner.class);
         when(scanner.scanForMultiplePaths(anyString(), anyString())).thenReturn(new String[]{matchedAssemblies});
         when(scanner.scanForSinglePath(anyString(), anyString())).thenReturn("");
@@ -143,5 +141,28 @@ public class When_getting_OpenCover_arguments {
         List<String> result = provider.getArguments();
 
         Assert.assertTrue(result.contains("-targetargs: "+matchedAssemblies+" "+additionalOptions));
+    }
+
+    @Test
+    public void and_user_specified_absolute_file_path_for_output__it_gets_passed_as_parameter() throws Exception {
+        String userInput = "c:\\someFile.xml";
+        String checkoutDir = "checkoutDir";
+        ConfigValuesProvider configProvider = mock(ConfigValuesProvider.class);
+        when(configProvider.getValueOrDefault(anyString()))
+                .thenReturn("otherConfigValueInput");
+        when(configProvider.getValueOrDefault(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_OUTPUT_FILE_PATH))
+                .thenReturn(userInput);
+        when(configProvider.getValueOrDefault(OpenCoverRunnerConsts.SETTINGS_TEAM_CITY_CHECKOUT_DIR))
+                .thenReturn(checkoutDir);
+        OpenCoverRunnerDirectoryScanner scanner = mock(OpenCoverRunnerDirectoryScanner.class);
+        when(scanner.scanForMultiplePaths(anyString(), anyString())).thenReturn(new String[]{""});
+        when(scanner.scanForSinglePath(eq(checkoutDir), eq(userInput))).thenReturn("");
+        ArgumentsProvider provider = new ArgumentsProvider(configProvider);
+        provider.setDirectoryScanner(scanner);
+        provider.setTestAssembliesPathsProvider(mock(TestsAssembliesPathsProvider.class));
+
+        List<String> result = provider.getArguments();
+
+        Assert.assertTrue(result.contains("-output: \"c:\\someFile.xml\""));
     }
 }

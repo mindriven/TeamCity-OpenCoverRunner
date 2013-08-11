@@ -1,5 +1,5 @@
 import junit.framework.Assert;
-import mindriven.buildServer.OpenCoverRunner.agent.OpenCoverRunnerDirectoryScanner;
+import mindriven.buildServer.OpenCoverRunner.agent.Utils.OpenCoverRunnerDirectoryScanner;
 import org.apache.tools.ant.DirectoryScanner;
 import org.junit.Before;
 import org.junit.Test;

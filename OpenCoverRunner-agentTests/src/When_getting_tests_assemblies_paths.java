@@ -1,13 +1,11 @@
 import junit.framework.Assert;
-import mindriven.buildServer.OpenCoverRunner.agent.ArgumentsProvider;
 import mindriven.buildServer.OpenCoverRunner.agent.ConfigValuesProvider;
-import mindriven.buildServer.OpenCoverRunner.agent.OpenCoverRunnerDirectoryScanner;
-import mindriven.buildServer.OpenCoverRunner.agent.TestsAssembliesPathsProvider;
+import mindriven.buildServer.OpenCoverRunner.agent.Utils.OpenCoverRunnerDirectoryScanner;
+import mindriven.buildServer.OpenCoverRunner.agent.OpenCover.TestsAssembliesPathsProvider;
 import mindriven.buildServer.OpenCoverRunner.common.OpenCoverRunnerConsts;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
-import java.util.List;
 
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;

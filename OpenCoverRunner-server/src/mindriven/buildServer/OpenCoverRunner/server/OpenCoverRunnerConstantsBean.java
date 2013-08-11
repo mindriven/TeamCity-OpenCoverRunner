@@ -76,5 +76,27 @@ public class OpenCoverRunnerConstantsBean {
         return OpenCoverRunnerConsts.SETTINGS_TESTS_ASSEMBLIES_COMMAND_LINE_SWITCH;
     }
 
+    @NotNull
+    public String getOpenCoverOutputFilePath()
+    {
+        return OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_OUTPUT_FILE_PATH;
+    }
 
+    @NotNull
+    public String getOpenCoverOutputDefaultFilePath()
+    {
+        return OpenCoverRunnerConsts.SETTINGS_DEFAULT_OPEN_COVER_OUTPUT_FILE_PATH;
+    }
+
+    @NotNull
+    public String getReportsGeneratorExecutablePath()
+    {
+        return OpenCoverRunnerConsts.SETTINGS_REPORTS_GENERATOR_EXECUTABLE_PATH;
+    }
+
+    @NotNull
+    public String getDefaultReportsGeneratorExecutablePath()
+    {
+        return OpenCoverRunnerConsts.SETTINGS_DEFAULT_REPORTS_EXECUTABLE_GENERATOR_PATH;
+    }
 }

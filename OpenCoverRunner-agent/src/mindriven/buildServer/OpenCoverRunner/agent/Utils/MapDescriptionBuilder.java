@@ -1,4 +1,4 @@
-package mindriven.buildServer.OpenCoverRunner.agent;
+package mindriven.buildServer.OpenCoverRunner.agent.Utils;
 
 import java.util.Iterator;
 import java.util.Map;

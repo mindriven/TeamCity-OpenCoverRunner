@@ -1,4 +1,4 @@
-package mindriven.buildServer.OpenCoverRunner.agent;
+package mindriven.buildServer.OpenCoverRunner.agent.Utils;
 
 import org.apache.tools.ant.DirectoryScanner;
 

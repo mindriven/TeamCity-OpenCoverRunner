@@ -1,5 +1,7 @@
-package mindriven.buildServer.OpenCoverRunner.agent;
+package mindriven.buildServer.OpenCoverRunner.agent.OpenCover;
 
+import mindriven.buildServer.OpenCoverRunner.agent.ConfigValuesProvider;
+import mindriven.buildServer.OpenCoverRunner.agent.Utils.OpenCoverRunnerDirectoryScanner;
 import mindriven.buildServer.OpenCoverRunner.common.OpenCoverRunnerConsts;
 
 import java.io.FileNotFoundException;

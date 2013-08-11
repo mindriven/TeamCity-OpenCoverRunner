@@ -1,5 +1,7 @@
 import junit.framework.Assert;
 import mindriven.buildServer.OpenCoverRunner.agent.*;
+import mindriven.buildServer.OpenCoverRunner.agent.OpenCover.ExecutablePathProvider;
+import mindriven.buildServer.OpenCoverRunner.agent.Utils.OpenCoverRunnerDirectoryScanner;
 import org.junit.Before;
 import org.junit.Test;
 

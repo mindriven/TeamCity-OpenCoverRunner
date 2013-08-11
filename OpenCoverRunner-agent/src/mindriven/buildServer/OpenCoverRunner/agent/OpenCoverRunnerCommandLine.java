@@ -2,13 +2,18 @@ package mindriven.buildServer.OpenCoverRunner.agent;
 
 import jetbrains.buildServer.RunBuildException;
 import jetbrains.buildServer.agent.runner.ProgramCommandLine;
-import mindriven.buildServer.OpenCoverRunner.common.DefaultValuesMap;
+import mindriven.buildServer.OpenCoverRunner.agent.OpenCover.ArgumentsProvider;
+import mindriven.buildServer.OpenCoverRunner.agent.OpenCover.ExecutablePathProvider;
 import mindriven.buildServer.OpenCoverRunner.common.OpenCoverRunnerConsts;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Vector;
 
 /**
  * Created with IntelliJ IDEA.
@@ -31,10 +36,26 @@ public class OpenCoverRunnerCommandLine implements ProgramCommandLine {
     }
     @NotNull
     @Override
+    // idea here is to create cmd that will actually execute open cover and then reports generatoe
+    // with their respective parameters
     public String getExecutablePath() throws RunBuildException {
         try {
-            return this.executablePathProvider.getExecutablePath();
-        } catch (FileNotFoundException e) {
+            String cmdFilePath = new File(
+                    this.configValuesProvider.getValueOrDefault(OpenCoverRunnerConsts.SETTINGS_TEAM_CITY_CHECKOUT_DIR),
+                    ".openCoverRunner.cmd"
+                    ).getPath().toString();
+            String openCoverRun = this.executablePathProvider.getExecutablePath();
+            PrintWriter writer = new PrintWriter(cmdFilePath, "UTF-8");
+            Iterator<String> iterator = this.argumentsProvider.getArguments().iterator();
+            while (iterator.hasNext())
+            {
+                openCoverRun+=" \""+iterator.next()+"\"";
+            }
+            writer.println(openCoverRun);
+            writer.close();
+            return cmdFilePath;
+
+        } catch (Exception e) {
             throw new RunBuildException(e);
         }
     }
@@ -48,11 +69,7 @@ public class OpenCoverRunnerCommandLine implements ProgramCommandLine {
     @NotNull
     @Override
     public List<String> getArguments() throws RunBuildException {
-        try {
-            return this.argumentsProvider.getArguments();
-        } catch (FileNotFoundException e) {
-            throw new RunBuildException(e);
-        }
+        return new Vector<String>();
     }
 
     @NotNull
