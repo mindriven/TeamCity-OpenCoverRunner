@@ -1,4 +1,4 @@
-package mindriven.buildServer.OpenCoverRunner.agent.OpenCover;
+package mindriven.buildServer.OpenCoverRunner.agent;
 
 import mindriven.buildServer.OpenCoverRunner.agent.ConfigValuesProvider;
 import mindriven.buildServer.OpenCoverRunner.agent.Utils.OpenCoverRunnerDirectoryScanner;
@@ -16,7 +16,6 @@ import java.util.Map;
  */
 public class ExecutablePathProvider {
 
-    private Map<String, String> parameters = null;
     private OpenCoverRunnerDirectoryScanner directoryScanner = new OpenCoverRunnerDirectoryScanner();
     private ConfigValuesProvider configProvider;
 
@@ -30,8 +29,7 @@ public class ExecutablePathProvider {
         this.directoryScanner = scanner;
     }
 
-    public String getExecutablePath() throws FileNotFoundException {
-        String pathKey = OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_PATH;
+    public String getExecutablePath(String pathKey) throws FileNotFoundException {
         String path = this.configProvider.getValueOrDefault(pathKey);
         String checkoutDirKey = OpenCoverRunnerConsts.SETTINGS_TEAM_CITY_CHECKOUT_DIR;
         String checkoutDir = this.configProvider.getValueOrDefault(checkoutDirKey);

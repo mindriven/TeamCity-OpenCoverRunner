@@ -1,13 +1,14 @@
 package mindriven.buildServer.OpenCoverRunner.agent;
-import jetbrains.buildServer.BuildProblemData;
 import jetbrains.buildServer.RunBuildException;
 import jetbrains.buildServer.agent.AgentBuildRunnerInfo;
 import jetbrains.buildServer.agent.BuildAgentConfiguration;
+import jetbrains.buildServer.agent.BuildFinishedStatus;
+import jetbrains.buildServer.agent.artifacts.ArtifactsWatcher;
+import jetbrains.buildServer.agent.inspections.InspectionReporter;
 import jetbrains.buildServer.agent.runner.BuildServiceAdapter;
 import jetbrains.buildServer.agent.runner.CommandLineBuildService;
 import jetbrains.buildServer.agent.runner.CommandLineBuildServiceFactory;
 import jetbrains.buildServer.agent.runner.ProgramCommandLine;
-import jetbrains.buildServer.messages.BuildMessage1;
 import mindriven.buildServer.OpenCoverRunner.common.DefaultValuesMap;
 import mindriven.buildServer.OpenCoverRunner.common.OpenCoverRunnerConsts;
 import org.jetbrains.annotations.NotNull;
@@ -27,6 +28,19 @@ import java.util.logging.Logger;
 public class OpenCoverRunnerServiceFactory extends BuildServiceAdapter implements CommandLineBuildServiceFactory, AgentBuildRunnerInfo {
 
     private Logger Log = Logger.getLogger(OpenCoverRunnerServiceFactory.class.getName());
+    private ConfigValuesProvider valuesProvider;
+    private final ArtifactsWatcher myArtifactsWatcher;
+
+    public OpenCoverRunnerServiceFactory(@NotNull ArtifactsWatcher myArtifactsWatcher)
+    {
+        this.myArtifactsWatcher = myArtifactsWatcher;
+    }
+
+    public void setConfigValuesProvider(ConfigValuesProvider provider)
+    {
+        this.valuesProvider = provider;
+    }
+
     public void setLog(Logger log)
     {
         this.Log = log;
@@ -59,10 +73,32 @@ public class OpenCoverRunnerServiceFactory extends BuildServiceAdapter implement
     @NotNull
     @Override
     public ProgramCommandLine makeProgramCommandLine() throws RunBuildException {
+        this.initValuesProvider();
+        return new OpenCoverRunnerCommandLine(this.valuesProvider);
+    }
+
+    @NotNull
+    @Override
+    public BuildFinishedStatus getRunResult(int exitCode) {
+
+        if(exitCode==0)
+        {
+            myArtifactsWatcher.addNewArtifactsPath(
+                    this.valuesProvider.getValueOrDefault(
+                            OpenCoverRunnerConsts.SETTINGS_REPORTS_GENERATOR_OUTPUT_DIR)+"/index.htm"
+                            + "=>"
+                            + OpenCoverRunnerConsts.SETTINGS_HTM_REPORTS_ARTIFACT_PATH);
+            return BuildFinishedStatus.FINISHED_SUCCESS;
+        }
+        return BuildFinishedStatus.FINISHED_WITH_PROBLEMS;
+    }
+
+    private void initValuesProvider()
+    {
         DefaultValuesMap defaults = new DefaultValuesMap();
         String checkoutDir = this.getCheckoutDirectory().toString();
         defaults.addDefaultValue(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_WORKING_DIRECTORY,
-                                 checkoutDir);
+                checkoutDir);
         ConfigValuesContainer configValues = new ConfigValuesContainer();
         configValues.setEnvironmentalVariables(this.getEnvironmentVariables());
         configValues.setDefaultValuesMapping(defaults.getMapping());
@@ -71,8 +107,6 @@ public class OpenCoverRunnerServiceFactory extends BuildServiceAdapter implement
         configuration.put(OpenCoverRunnerConsts.SETTINGS_TEAM_CITY_CHECKOUT_DIR, checkoutDir);
         configValues.setDefinedConfigValues(configuration);
 
-        return new OpenCoverRunnerCommandLine(new ConfigValuesProvider(configValues));
+        this.valuesProvider = new ConfigValuesProvider(configValues);
     }
-
-
 }

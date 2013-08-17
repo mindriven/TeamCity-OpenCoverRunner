@@ -1,5 +1,6 @@
 import jetbrains.buildServer.agent.BuildAgentConfiguration;
 import jetbrains.buildServer.agent.BuildAgentSystemInfo;
+import jetbrains.buildServer.agent.artifacts.ArtifactsWatcher;
 import junit.extensions.TestSetup;
 import junit.framework.Assert;
 import mindriven.buildServer.OpenCoverRunner.agent.OpenCoverRunnerServiceFactory;
@@ -27,7 +28,7 @@ public class When_creating_service {
     @Before
     public void Setup()
     {
-        this.factory = new OpenCoverRunnerServiceFactory();
+        this.factory = new OpenCoverRunnerServiceFactory(mock(ArtifactsWatcher.class));
     }
 
     @Test

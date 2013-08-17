@@ -97,6 +97,18 @@ public class OpenCoverRunnerConstantsBean {
     @NotNull
     public String getDefaultReportsGeneratorExecutablePath()
     {
-        return OpenCoverRunnerConsts.SETTINGS_DEFAULT_REPORTS_EXECUTABLE_GENERATOR_PATH;
+        return OpenCoverRunnerConsts.SETTINGS_DEFAULT_REPORTS_GENERATOR_EXECUTABLE_PATH;
+    }
+
+    @NotNull
+    public String getReportsGeneratorOutputDirectory()
+    {
+        return OpenCoverRunnerConsts.SETTINGS_REPORTS_GENERATOR_OUTPUT_DIR;
+    }
+
+    @NotNull
+    public String getDefaultReportsGeneratorOutputDirectory()
+    {
+        return OpenCoverRunnerConsts.SETTINGS_DEFAULT_REPORTS_GENERATOR_OUTPUT_DIR;
     }
 }

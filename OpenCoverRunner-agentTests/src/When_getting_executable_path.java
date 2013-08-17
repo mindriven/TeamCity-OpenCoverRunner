@@ -1,6 +1,6 @@
 import junit.framework.Assert;
 import mindriven.buildServer.OpenCoverRunner.agent.*;
-import mindriven.buildServer.OpenCoverRunner.agent.OpenCover.ExecutablePathProvider;
+import mindriven.buildServer.OpenCoverRunner.agent.ExecutablePathProvider;
 import mindriven.buildServer.OpenCoverRunner.agent.Utils.OpenCoverRunnerDirectoryScanner;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,7 +36,7 @@ public class When_getting_executable_path {
         OpenCoverRunnerDirectoryScanner scanner = mock(OpenCoverRunnerDirectoryScanner.class);
         provider.setDirectoryScanner(scanner);
 
-        provider.getExecutablePath();
+        provider.getExecutablePath(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_PATH);
 
         ArgumentCaptor<String> argument = ArgumentCaptor.forClass(String.class);
         ArgumentCaptor<String> argument2 = ArgumentCaptor.forClass(String.class);
@@ -54,7 +54,7 @@ public class When_getting_executable_path {
         OpenCoverRunnerDirectoryScanner scanner = mock(OpenCoverRunnerDirectoryScanner.class);
         provider.setDirectoryScanner(scanner);
 
-        provider.getExecutablePath();
+        provider.getExecutablePath(null);
 
         ArgumentCaptor<String> argument = ArgumentCaptor.forClass(String.class);
         ArgumentCaptor<String> argument2 = ArgumentCaptor.forClass(String.class);

@@ -93,6 +93,24 @@
 </l:settingsGroup>
 
 <l:settingsGroup title="Reports Generator">
+<tr>
+    <th><label>Path to ReportGenerator:</label></th>
+    <td>
+        <props:textProperty name="${constants.getReportsGeneratorExecutablePath}" className="longField" />
+        <bs:vcsTree fieldId="${constants.getReportsGeneratorExecutablePath}" treeId="${constants.getReportsGeneratorExecutablePath}"/>
+        <span class="smallNote">ReportsGenerator executable relative to checkout root. Use * to enable dynamic discovery. Default is ${constants.getDefaultReportsGeneratorExecutablePath}</span>
+        <span class="error" id="error_${constants.getReportsGeneratorExecutablePath}"></span></td>
+    </td>
+</tr>
+<tr>
+    <th><label>ReportGenerator output directory:</label></th>
+    <td>
+        <props:textProperty name="${constants.getReportsGeneratorOutputDirectory}" className="longField" />
+        <bs:vcsTree fieldId="${constants.getReportsGeneratorOutputDirectory}" treeId="${constants.getReportsGeneratorOutputDirectory}"/>
+        <span class="smallNote">ReportsGenerator output directory relative to checkout root. Default is ${constants.getDefaultReportsGeneratorOutputDirectory}</span>
+        <span class="error" id="error_${constants.getReportsGeneratorOutputDirectory}"></span></td>
+    </td>
+</tr>
 </l:settingsGroup>
 
 <l:settingsGroup title="Coverage">

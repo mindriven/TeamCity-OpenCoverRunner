@@ -31,7 +31,7 @@ public class When_getting_OpenCover_arguments {
     @Test
     public void filters_are_properly_constructed() throws Exception {
         String filters = "+[*]* \r\n -[someAssembly].namespace.*    +[otherAssembly]*   ";
-        String expected = "-filter: +[*]* -[someAssembly].namespace.* +[otherAssembly]*";
+        String expected = "-filter:+[*]* -[someAssembly].namespace.* +[otherAssembly]*";
         ConfigValuesProvider configProvider = mock(ConfigValuesProvider.class);
         when(configProvider.getValueOrDefault(anyString()))
                 .thenReturn("otherConfigValueInput");
@@ -90,7 +90,7 @@ public class When_getting_OpenCover_arguments {
 
         List<String> result = provider.getArguments();
 
-        Assert.assertTrue(result.contains("-target: \"pathToRunnerExecutable\""));
+        Assert.assertTrue(result.contains("-target:\"pathToRunnerExecutable\""));
     }
 
     @Test
@@ -116,7 +116,7 @@ public class When_getting_OpenCover_arguments {
 
         List<String> result = provider.getArguments();
 
-        Assert.assertTrue(result.contains("-targetargs: "+matchedAssemblies));
+        Assert.assertTrue(result.contains("-targetargs:"+matchedAssemblies));
     }
 
     @Test
@@ -140,7 +140,7 @@ public class When_getting_OpenCover_arguments {
 
         List<String> result = provider.getArguments();
 
-        Assert.assertTrue(result.contains("-targetargs: "+matchedAssemblies+" "+additionalOptions));
+        Assert.assertTrue(result.contains("-targetargs:"+matchedAssemblies+" "+additionalOptions));
     }
 
     @Test
@@ -163,6 +163,6 @@ public class When_getting_OpenCover_arguments {
 
         List<String> result = provider.getArguments();
 
-        Assert.assertTrue(result.contains("-output: \"c:\\someFile.xml\""));
+        Assert.assertTrue(result.contains("-output:\"c:\\someFile.xml\""));
     }
 }

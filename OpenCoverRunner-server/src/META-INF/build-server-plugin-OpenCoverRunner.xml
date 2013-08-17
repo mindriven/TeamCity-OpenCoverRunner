@@ -5,6 +5,6 @@
 <beans default-autowire="constructor">
 
   <bean id="OpenCoverRunType" class="mindriven.buildServer.OpenCoverRunner.server.OpenCoverRunType"/>
-  <!--<bean id="FxCopReportTab" class="jetbrains.buildServer.fxcop.server.FxCopReportTab"/>-->
+  <bean id="OpenCoverRunnerCoverageEmiter" class="mindriven.buildServer.OpenCoverRunner.server.CoverageEmitter"/>
 
 </beans>

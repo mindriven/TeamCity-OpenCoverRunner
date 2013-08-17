@@ -1,6 +1,7 @@
 package mindriven.buildServer.OpenCoverRunner.agent.OpenCover;
 
 import mindriven.buildServer.OpenCoverRunner.agent.ConfigValuesProvider;
+import mindriven.buildServer.OpenCoverRunner.agent.IArgumentsProvider;
 import mindriven.buildServer.OpenCoverRunner.agent.Utils.OpenCoverRunnerDirectoryScanner;
 import mindriven.buildServer.OpenCoverRunner.agent.Utils.StringUtils;
 import mindriven.buildServer.OpenCoverRunner.common.OpenCoverRunnerConsts;
@@ -15,7 +16,7 @@ import java.util.*;
  * Time: 11:13
  * To change this template use File | Settings | File Templates.
  */
-public class ArgumentsProvider {
+public class ArgumentsProvider implements IArgumentsProvider {
     private ConfigValuesProvider configProvider = null;
     private OpenCoverRunnerDirectoryScanner scanner = null;
     private TestsAssembliesPathsProvider assembliesPathsProvider = null;
@@ -39,14 +40,14 @@ public class ArgumentsProvider {
 
     public List<String> getArguments() throws FileNotFoundException {
         List<String> result = new ArrayList<String>();
-        result.add(("-targetargs: "
+        result.add(("-targetargs:"
                 +this.assembliesPathsProvider.getTestsAssembliesPaths()
                 +" "
                 +this.getAdditionalTestsRunnerOptions()).trim());
-        result.add("-filter: " + this.getFilters());
-        result.add("-target: \""+this.getTestsRunnerPath()+"\"");
+        result.add("-filter:" + this.getFilters());
+        result.add("-target:\""+this.getTestsRunnerPath()+"\"");
         result.add(this.configProvider.getValueOrDefault(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_ADDITIONAL_OPTIONS));
-        result.add("-output: \""+this.configProvider.getValueOrDefault(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_OUTPUT_FILE_PATH)+"\"");
+        result.add("-output:\""+this.configProvider.getValueOrDefault(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_OUTPUT_FILE_PATH)+"\"");
         return result;
     }
 

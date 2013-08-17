@@ -21,7 +21,7 @@ public interface OpenCoverRunnerConsts {
     String SETTINGS_DEFAULT_OPEN_COVER_OUTPUT_FILE_PATH = "result.xml";
 
     String SETTINGS_REPORTS_GENERATOR_EXECUTABLE_PATH = "openCoverRunner.reportGeneratorExecutablePath";
-    String SETTINGS_DEFAULT_REPORTS_EXECUTABLE_GENERATOR_PATH = "packages/ReportGenerator*/ReportGenerator.exe";
+    String SETTINGS_DEFAULT_REPORTS_GENERATOR_EXECUTABLE_PATH = "packages/ReportGenerator*/ReportGenerator.exe";
     String SETTINGS_REPORTS_GENERATOR_OUTPUT_DIR = "openCoverRunner.reportGeneratorOutputDir";
     String SETTINGS_DEFAULT_REPORTS_GENERATOR_OUTPUT_DIR = "CoverageReport";
 
@@ -31,6 +31,14 @@ public interface OpenCoverRunnerConsts {
     String SETTINGS_TESTS_RUNNER_ARGUMENTS = "openCoverRunner.testsRunnerArguments";
     String SETTINGS_PASS_ASSEMBLIES_AS_SWITCH = "openCoverRunner.passAssembliesAsSwitch";
     String SETTINGS_TESTS_ASSEMBLIES_COMMAND_LINE_SWITCH = "openCoverRunner.testsAssembliesCommandLineSwitch";
+
+    String OPEN_COVER_RUNNER_COVERAGE_METRIC_KEY = "openCoverRunner.PercentOfLinesCovered";
+    String OPEN_COVER_RUNNER_COVERAGE_METRIC_DESCRIPTION = "Percent of lines covered(Open cover runner)";
+
+    String SETTINGS_HTM_REPORTS_ARTIFACT_PATH = ".teamcity/OpenCoverRunnerCoverageReport";
+    String CONST_REPORT_GENERATOR_HTM_RESULT_FILE_NAME = "index.htm";
+
+    String SETTINGS_REPORT_COVERAGE_VALUE_XPATH = "/html/body/div/table/tbody/tr[6]/td";
 
     String SETTINGS_TEAM_CITY_CHECKOUT_DIR = "openCoverRunner.TeamCityCheckoutDir";
 }
