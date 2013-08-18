@@ -56,7 +56,7 @@
                                        linkTitle="tests assemblies paths"
                                        cols="55" rows="5"
                                        expanded="true"/>
-        <span class="smallNote">New line separated list of test assemblies. Ant-like wildcards are supported (each line analysed independently)</span>
+        <span class="smallNote">New line separated list of test assemblies. Ant-like wildcards are supported (independent scan is performed for each line)</span>
         <span class="error" id="error_${constants.testsAssembliesPaths}"></span></td>
     </td>
 </tr>
@@ -96,22 +96,19 @@
 <tr>
     <th><label>Path to ReportGenerator:</label></th>
     <td>
-        <props:textProperty name="${constants.getReportsGeneratorExecutablePath}" className="longField" />
-        <bs:vcsTree fieldId="${constants.getReportsGeneratorExecutablePath}" treeId="${constants.getReportsGeneratorExecutablePath}"/>
-        <span class="smallNote">ReportsGenerator executable relative to checkout root. Use * to enable dynamic discovery. Default is ${constants.getDefaultReportsGeneratorExecutablePath}</span>
-        <span class="error" id="error_${constants.getReportsGeneratorExecutablePath}"></span></td>
+        <props:textProperty name="${constants.reportsGeneratorExecutablePath}" className="longField" />
+        <bs:vcsTree fieldId="${constants.reportsGeneratorExecutablePath}" treeId="${constants.reportsGeneratorExecutablePath}"/>
+        <span class="smallNote">ReportsGenerator executable relative to checkout root. Use * to enable dynamic discovery. Default is ${constants.defaultReportsGeneratorExecutablePath}</span>
+        <span class="error" id="error_${constants.reportsGeneratorExecutablePath}"></span></td>
     </td>
 </tr>
 <tr>
     <th><label>ReportGenerator output directory:</label></th>
     <td>
-        <props:textProperty name="${constants.getReportsGeneratorOutputDirectory}" className="longField" />
-        <bs:vcsTree fieldId="${constants.getReportsGeneratorOutputDirectory}" treeId="${constants.getReportsGeneratorOutputDirectory}"/>
-        <span class="smallNote">ReportsGenerator output directory relative to checkout root. Default is ${constants.getDefaultReportsGeneratorOutputDirectory}</span>
-        <span class="error" id="error_${constants.getReportsGeneratorOutputDirectory}"></span></td>
+        <props:textProperty name="${constants.reportsGeneratorOutputDirectory}" className="longField" />
+        <bs:vcsTree fieldId="${constants.reportsGeneratorOutputDirectory}" treeId="${constants.reportsGeneratorOutputDirectory}"/>
+        <span class="smallNote">ReportsGenerator output directory relative to checkout root. Default is ${constants.defaultReportsGeneratorOutputDirectory}</span>
+        <span class="error" id="error_${constants.reportsGeneratorOutputDirectory}"></span></td>
     </td>
 </tr>
-</l:settingsGroup>
-
-<l:settingsGroup title="Coverage">
 </l:settingsGroup>
