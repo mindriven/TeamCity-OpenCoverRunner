@@ -46,8 +46,41 @@ public class ArgumentsProvider implements IArgumentsProvider {
                 +this.getAdditionalTestsRunnerOptions()).trim());
         result.add("-filter:" + this.getFilters());
         result.add("-target:\""+this.getTestsRunnerPath()+"\"");
-        result.add(this.configProvider.getValueOrDefault(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_ADDITIONAL_OPTIONS));
         result.add("-output:\""+this.configProvider.getValueOrDefault(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_OUTPUT_FILE_PATH)+"\"");
+        result.addAll(this.getAdditionalOptions());
+        return result;
+    }
+
+    private Vector<String> getAdditionalOptions()
+    {
+        String userInput = this.configProvider.getValueOrDefault(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_ADDITIONAL_OPTIONS);
+        String[] rawOptions = userInput.split(" ");
+        Vector<String> result = new Vector<String>();
+        for(int i=0;i<rawOptions.length;i++)
+        {
+            String optionToAppend = rawOptions[i];
+            if(optionToAppend.contains("\""))
+            {
+                int numberOfQuotationMarks = optionToAppend.length() - optionToAppend.replace("\"", "").length();
+                if(numberOfQuotationMarks%2==1)
+                {
+                    for(int j=i+1;j<rawOptions.length;j++)
+                    {
+                        String followingOption = rawOptions[j];
+                        optionToAppend+=" "+followingOption;
+                        int numberOfQuotationMarksInFollowingOption = followingOption.length() - followingOption.replace("\"", "").length();
+                        if(numberOfQuotationMarksInFollowingOption%2==1)
+                        {
+                            i=j;
+                            break;
+                        }
+                    }
+                }
+            }
+            if(!optionToAppend.trim().isEmpty())
+                result.add(optionToAppend.trim());
+        }
+
         return result;
     }
 

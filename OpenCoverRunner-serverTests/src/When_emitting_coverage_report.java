@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 public class When_emitting_coverage_report {
 
     @Test
-    public void and_report_exists__value_returned_by_ReportCoverageReader_is_returned()
+    public void and_report_exists__value_returned_by_ReportCoverageReader_is_returned() throws Exception
     {
         CoverageEmitter emitter = new CoverageEmitter();
         SBuild build = mock(SBuild.class);
@@ -50,7 +50,7 @@ public class When_emitting_coverage_report {
     }
 
     @Test
-    public void and_report_does_not_exists__value_returned_is__0()
+    public void and_report_does_not_exists__value_returned_is__0() throws Exception
     {
         CoverageEmitter emitter = new CoverageEmitter();
         SBuild build = mock(SBuild.class);

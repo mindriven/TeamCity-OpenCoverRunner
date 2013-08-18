@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
  * Time: 20:16
  * To change this template use File | Settings | File Templates.
  */
-public class When_getting_reportGenerator_arguments {
+public class When_getting_ReportGenerator_arguments {
 
     @Test
     public void report_file_is_taken_from_open_cover() throws Exception

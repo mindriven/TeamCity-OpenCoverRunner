@@ -49,8 +49,10 @@ public class When_getting_OpenCover_arguments {
     }
 
     @Test
-    public void and_user_provided_additional_parameters__user_input_is_included_in_results() throws Exception {
-        String userInput = "userInput";
+    public void and_user_provided_additional_parameters__they_are_separately_included_in_results_preserving_spaces_handling()
+                throws Exception
+    {
+        String userInput = "userInput input2 input3:\"with space\"     input4";
         OpenCoverRunnerDirectoryScanner scanner = mock(OpenCoverRunnerDirectoryScanner.class);
         when(scanner.scanForMultiplePaths(anyString(), anyString())).thenReturn(new String[]{""});
         ConfigValuesProvider configProvider = mock(ConfigValuesProvider.class);
@@ -66,7 +68,10 @@ public class When_getting_OpenCover_arguments {
 
         List<String> result = provider.getArguments();
 
-        Assert.assertTrue(result.contains(userInput));
+        Assert.assertTrue(result.contains("userInput"));
+        Assert.assertTrue(result.contains("input2"));
+        Assert.assertTrue(result.contains("input3:\"with space\""));
+        Assert.assertTrue(result.contains("input4"));
     }
 
     @Test
