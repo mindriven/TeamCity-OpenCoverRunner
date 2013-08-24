@@ -82,12 +82,34 @@
     </td>
 </tr>
 <tr>
-    <th><label>Switch:</label></th>
+    <th><label>Prefix assemblies as command line switch:</label></th>
     <td>
-        <props:checkboxProperty name="${constants.passAssembliesAsSwitch}"/> <br />
-        <props:textProperty name="${constants.testsAssembliesCommandLineSwitch}" className="longField" />
-        <span class="smallNote">If test assemblies should be passed to runner as value of command-line switch instead as arguments (like MSTest) specify command line switch to prefix each assembly path with.</span>
-        <span class="error" id="error_${constants.testsAssembliesCommandLineSwitch}"></span></td>
+        <c:set var="onclick">
+        if(this.checked)
+        {
+            BS.Util.show('assembliesCommandLineSwitchContainer');
+            $('${constants.testsAssembliesCommandLineSwitch}').disabled = false;
+        }
+        else
+        {
+            BS.Util.hide('assembliesCommandLineSwitchContainer');
+            $('${constants.testsAssembliesCommandLineSwitch}').disabled = true;
+        }
+        BS.VisibilityHandlers.updateVisibility('${constants.testsAssembliesCommandLineSwitch}');
+        </c:set>
+        <props:checkboxProperty name="${constants.passAssembliesAsSwitch}"
+                                onclick="${onclick}"
+                                checked="${propertiesBean.properties[constants.passAssembliesAsSwitch]}"
+                                />
+        <br />
+        <c:if test="${empty propertiesBean.properties[constants.passAssembliesAsSwitch]}">
+           <c:set var="hideAssembliesCommandLineSwitchContainer" value="style='display: none'"/>
+        </c:if>
+        <span id = "assembliesCommandLineSwitchContainer" ${hideAssembliesCommandLineSwitchContainer} >
+            <props:textProperty name="${constants.testsAssembliesCommandLineSwitch}" className="longField" />
+            <span class="smallNote">If test assemblies should be passed to runner as value of command-line switch instead as arguments (like MSTest) specify command line switch to prefix each assembly with.</span>
+            <span class="error" id="error_${constants.testsAssembliesCommandLineSwitch}"></span>
+        <span/>
     </td>
 </tr>
 </l:settingsGroup>
