@@ -2,15 +2,11 @@ package mindriven.buildServer.OpenCoverRunner.server;
 
 import jetbrains.buildServer.serverSide.artifacts.BuildArtifact;
 import mindriven.buildServer.OpenCoverRunner.common.OpenCoverRunnerConsts;
+import mindriven.buildServer.OpenCoverRunner.server.Utils.XmlUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import sun.security.util.BigInt;
 
-import javax.swing.text.html.parser.Element;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.*;
 import java.io.IOException;

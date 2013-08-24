@@ -32,7 +32,8 @@ public interface OpenCoverRunnerConsts {
     String SETTINGS_PASS_ASSEMBLIES_AS_SWITCH = "openCoverRunner.passAssembliesAsSwitch";
     String SETTINGS_TESTS_ASSEMBLIES_COMMAND_LINE_SWITCH = "openCoverRunner.testsAssembliesCommandLineSwitch";
 
-    String OPEN_COVER_RUNNER_COVERAGE_METRIC_KEY = "openCoverRunner.PercentOfLinesCovered";
+    // value taken from http://confluence.jetbrains.com/display/TCD8/Custom+Chart#CustomChart-BuildMetricsProvidedbyTeamCity
+    String OPEN_COVER_RUNNER_COVERAGE_METRIC_KEY = "CodeCoverageL";
     String OPEN_COVER_RUNNER_COVERAGE_METRIC_DESCRIPTION = "Percent of lines covered (OpenCover)";
 
     String SETTINGS_HTM_REPORTS_ARTIFACT_PATH = ".teamcity/OpenCoverRunnerCoverageReport";

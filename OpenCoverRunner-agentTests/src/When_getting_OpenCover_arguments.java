@@ -149,7 +149,7 @@ public class When_getting_OpenCover_arguments {
     }
 
     @Test
-    public void and_user_specified_absolute_file_path_for_output__it_gets_passed_as_parameter() throws Exception {
+    public void and_user_specified_file_path_for_report_output__it_gets_passed_as_parameter() throws Exception {
         String userInput = "c:\\someFile.xml";
         String checkoutDir = "checkoutDir";
         ConfigValuesProvider configProvider = mock(ConfigValuesProvider.class);

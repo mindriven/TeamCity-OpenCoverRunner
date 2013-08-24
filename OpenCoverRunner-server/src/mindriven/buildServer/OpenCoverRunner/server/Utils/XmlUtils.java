@@ -1,4 +1,4 @@
-package mindriven.buildServer.OpenCoverRunner.server;
+package mindriven.buildServer.OpenCoverRunner.server.Utils;
 
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;

@@ -41,8 +41,17 @@
     <td>
         <props:textProperty name="${constants.openCoverWorkingDirectory}" className="longField" />
         <bs:vcsTree fieldId="${constants.openCoverWorkingDirectory}" treeId="${constants.openCoverWorkingDirectory}"/>
-        <span class="smallNote">Open directory. Default is checkout dir.</span>
+        <span class="smallNote">Working directory. Default is checkout dir.</span>
         <span class="error" id="error_${constants.openCoverWorkingDirectory}"></span></td>
+    </td>
+</tr>
+<tr>
+    <th><label>Output file</label></th>
+    <td>
+        <props:textProperty name="${constants.openCoverOutputFilePath}" className="longField" />
+        <bs:vcsTree fieldId="${constants.openCoverOutputFilePath}" treeId="${constants.openCoverOutputFilePath}"/>
+        <span class="smallNote">Output to which save the report(for example for further processing). Default is ${constants.openCoverOutputDefaultFilePath}.</span>
+        <span class="error" id="error_${constants.openCoverOutputFilePath}"></span></td>
     </td>
 </tr>
 </l:settingsGroup>
@@ -82,7 +91,9 @@
     </td>
 </tr>
 <tr>
-    <th><label>Prefix assemblies as command line switch:</label></th>
+    <th><label>Prefix assemblies as command line switch:
+    <br /><span class="smallNote">If test assemblies should be passed to runner as value of command-line switch instead as arguments (like MSTest) specify command line switch to prefix each assembly with.</span>
+    </label></th>
     <td>
         <c:set var="onclick">
         if(this.checked)
@@ -101,13 +112,11 @@
                                 onclick="${onclick}"
                                 checked="${propertiesBean.properties[constants.passAssembliesAsSwitch]}"
                                 />
-        <br />
         <c:if test="${empty propertiesBean.properties[constants.passAssembliesAsSwitch]}">
            <c:set var="hideAssembliesCommandLineSwitchContainer" value="style='display: none'"/>
         </c:if>
         <span id = "assembliesCommandLineSwitchContainer" ${hideAssembliesCommandLineSwitchContainer} >
             <props:textProperty name="${constants.testsAssembliesCommandLineSwitch}" className="longField" />
-            <span class="smallNote">If test assemblies should be passed to runner as value of command-line switch instead as arguments (like MSTest) specify command line switch to prefix each assembly with.</span>
             <span class="error" id="error_${constants.testsAssembliesCommandLineSwitch}"></span>
         <span/>
     </td>

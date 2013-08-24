@@ -1,7 +1,7 @@
 import jetbrains.buildServer.serverSide.artifacts.BuildArtifact;
 import junit.framework.Assert;
 import mindriven.buildServer.OpenCoverRunner.server.ReportCoverageReader;
-import mindriven.buildServer.OpenCoverRunner.server.XmlUtils;
+import mindriven.buildServer.OpenCoverRunner.server.Utils.XmlUtils;
 import org.apache.tools.ant.filters.StringInputStream;
 import org.junit.Test;
 
