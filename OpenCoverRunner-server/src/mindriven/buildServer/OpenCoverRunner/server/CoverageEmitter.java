@@ -4,6 +4,7 @@ import jetbrains.buildServer.serverSide.SBuild;
 import jetbrains.buildServer.serverSide.artifacts.BuildArtifactHolder;
 import jetbrains.buildServer.serverSide.artifacts.BuildArtifactsViewMode;
 import mindriven.buildServer.OpenCoverRunner.common.OpenCoverRunnerConsts;
+import org.xml.sax.SAXException;
 import sun.misc.IOUtils;
 
 import javax.print.DocFlavor;
@@ -43,12 +44,14 @@ public class CoverageEmitter extends BuildMetric {
                     .findArtifact(OpenCoverRunnerConsts.SETTINGS_HTM_REPORTS_ARTIFACT_PATH+"/"+OpenCoverRunnerConsts.CONST_REPORT_GENERATOR_HTM_RESULT_FILE_NAME);
             if(artifactHolder.isAvailable() && artifactHolder.isAccessible())
             {
-                return this.reportCoverageReader.readCoverage(artifactHolder.getArtifact());
+                BigDecimal result = this.reportCoverageReader.readCoverage(artifactHolder.getArtifact());
+                Log.log(Level.FINER, "OpenCoverRunner emitting coverage metric: "+result+" % of lines covered");
+                return result;
             }
-        } catch (Exception e) {
-            Log.log(Level.WARNING, "unable to emit coverage, exception of type "+e.getClass().getName()+"occurred. Message is: "+e.getMessage());
         }
-
+        catch (Exception e) {
+            Log.log(Level.WARNING, "Unable to emit coverage, exception of type "+e.getClass().getName()+"occurred. Message is: "+e.getMessage()+" Emitting 0.0 coverage.");
+        }
         return new BigDecimal(0);
     }
 }

@@ -3,6 +3,7 @@ package mindriven.buildServer.OpenCoverRunner.server;
 import jetbrains.buildServer.serverSide.artifacts.BuildArtifact;
 import mindriven.buildServer.OpenCoverRunner.common.OpenCoverRunnerConsts;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import sun.security.util.BigInt;
@@ -23,20 +24,27 @@ import java.math.BigDecimal;
  * To change this template use File | Settings | File Templates.
  */
 public class ReportCoverageReader {
-    public BigDecimal readCoverage(BuildArtifact reportArtifact) throws IOException, SAXException, ParserConfigurationException, XPathExpressionException {
-        DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-        dbf.setValidating(false);
-        dbf.setIgnoringComments(false);
-        dbf.setIgnoringElementContentWhitespace(true);
-        dbf.setNamespaceAware(true);
-        DocumentBuilder db = dbf.newDocumentBuilder();
-        Document document = db.parse(reportArtifact.getInputStream());
+    private XmlUtils xmlUtils = new XmlUtils();
 
+    public void setXmlUtils(XmlUtils utils)
+    {
+        this.xmlUtils = utils;
+    }
+    public BigDecimal readCoverage(BuildArtifact reportArtifact) throws IOException, SAXException, ParserConfigurationException, XPathExpressionException {
+
+        Document document = xmlUtils.getDocumentFromStream(reportArtifact.getInputStream());
         XPathFactory xPathfactory = XPathFactory.newInstance();
         XPath xpath = xPathfactory.newXPath();
         XPathExpression expr = xpath.compile(OpenCoverRunnerConsts.SETTINGS_REPORT_COVERAGE_VALUE_XPATH);
-        Element coverageNode = (Element)expr.evaluate(document, XPathConstants.NODE);
+        Node coverageNode = (Node)expr.evaluate(document, XPathConstants.NODE);
+        String coverageNodeText = coverageNode.getTextContent();
+        Double result = 0.0;
+        if(!coverageNodeText.isEmpty())
+        {
+            String coverageValue = coverageNodeText.substring(0, coverageNodeText.length()-1);
+            result = Double.parseDouble(coverageValue);
+        }
 
-        return new BigDecimal(Double.parseDouble(coverageNode.data.toString()));
+        return new BigDecimal(result);
     }
 }

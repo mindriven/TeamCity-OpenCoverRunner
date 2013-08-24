@@ -33,7 +33,7 @@ public interface OpenCoverRunnerConsts {
     String SETTINGS_TESTS_ASSEMBLIES_COMMAND_LINE_SWITCH = "openCoverRunner.testsAssembliesCommandLineSwitch";
 
     String OPEN_COVER_RUNNER_COVERAGE_METRIC_KEY = "openCoverRunner.PercentOfLinesCovered";
-    String OPEN_COVER_RUNNER_COVERAGE_METRIC_DESCRIPTION = "Percent of lines covered(Open cover runner)";
+    String OPEN_COVER_RUNNER_COVERAGE_METRIC_DESCRIPTION = "Percent of lines covered (OpenCover)";
 
     String SETTINGS_HTM_REPORTS_ARTIFACT_PATH = ".teamcity/OpenCoverRunnerCoverageReport";
     String CONST_REPORT_GENERATOR_HTM_RESULT_FILE_NAME = "index.htm";
