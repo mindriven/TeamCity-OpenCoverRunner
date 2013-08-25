@@ -24,6 +24,9 @@ public class OpenCoverRunnerDirectoryScanner {
     }
 
     public String scanForSinglePath(String basePath, String pattern) throws FileNotFoundException {
+        String normalizedSlashesPath = pattern.replace("/", "\\");
+        if(this.isAbsoluteFilePath(normalizedSlashesPath))
+            return normalizedSlashesPath;
         String[] allFound = this.scanForMultiplePaths(basePath, pattern);
         if(allFound.length!=1)
         {
@@ -48,8 +51,14 @@ public class OpenCoverRunnerDirectoryScanner {
 
     }
 
+    private Boolean isAbsoluteFilePath(String path)
+    {
+        File file = new File(path);
+        return file.getAbsolutePath() == path;
+    }
+
     private void throwScanningResultInconclusiveException(String path) throws FileNotFoundException {
-        String message = "Found multiple or none files("+this.scanner.getIncludedFilesCount()+") matching OpenCover executable path pattern";
+        String message = "Found multiple or none files("+this.scanner.getIncludedFilesCount()+") matching directory discovery pattern";
         message+="\n\rSearched in: "+this.scanner.getBasedir();
         message+="\n\rSearched for: "+path;
         throw new FileNotFoundException(message);

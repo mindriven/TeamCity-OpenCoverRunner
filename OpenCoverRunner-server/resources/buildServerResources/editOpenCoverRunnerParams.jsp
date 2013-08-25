@@ -82,11 +82,11 @@
     </td>
 </tr>
 <tr>
-    <th><label>Additional arguments for test runner:</label></th>
+    <th><label>Additional arguments for tests runner:</label></th>
     <td>
         <props:textProperty name="${constants.testsRunnerArguments}" className="longField" />
         <bs:vcsTree fieldId="${constants.testsRunnerArguments}" treeId="${constants.testsRunnerArguments}"/>
-        <span class="smallNote">Path to tests runner, ant-like paths are supported</span>
+        <span class="smallNote">Additional options for tests runner specified above</span>
         <span class="error" id="error_${constants.testsRunnerArguments}"></span></td>
     </td>
 </tr>
