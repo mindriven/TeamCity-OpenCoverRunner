@@ -45,7 +45,7 @@ public class ArgumentsProvider implements IArgumentsProvider {
                 +" "
                 +this.getAdditionalTestsRunnerOptions()).trim());
         result.add("-filter:" + this.getFilters());
-        result.add("-target:\""+this.getTestsRunnerPath()+"\"");
+        result.add("-target:"+this.getTestsRunnerPath());
         result.add("-output:\""+this.configProvider.getValueOrDefault(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_OUTPUT_FILE_PATH)+"\"");
         result.addAll(this.getAdditionalOptions());
         return result;

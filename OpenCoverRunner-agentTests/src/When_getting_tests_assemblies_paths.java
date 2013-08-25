@@ -46,7 +46,7 @@ public class When_getting_tests_assemblies_paths {
 
         String result = provider.getTestsAssembliesPaths();
 
-        Assert.assertEquals(result, "\"p1r1\" \"p1r2\" \"p2r1\" \"p3r1\" \"p3r2\" \"p3r3\"");
+        Assert.assertEquals(result, "\\\"p1r1\\\" \\\"p1r2\\\" \\\"p2r1\\\" \\\"p3r1\\\" \\\"p3r2\\\" \\\"p3r3\\\"");
     }
 
     @Test
@@ -78,7 +78,7 @@ public class When_getting_tests_assemblies_paths {
 
         String result = provider.getTestsAssembliesPaths();
 
-        Assert.assertEquals(result, "\"switch p1r1\" \"switch p1r2\" \"switch p2r1\" \"switch p3r1\" \"switch p3r2\" \"switch p3r3\"");
+        Assert.assertEquals(result, "\\\"switchp1r1\\\" \\\"switchp1r2\\\" \\\"switchp2r1\\\" \\\"switchp3r1\\\" \\\"switchp3r2\\\" \\\"switchp3r3\\\"");
     }
 
     @Test(expected = FileNotFoundException.class)

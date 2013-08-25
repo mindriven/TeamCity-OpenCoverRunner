@@ -63,15 +63,14 @@ public class When_using_directory_scanner {
     }
 
     @Test
-    public void for_one_file_and_provided_absolute_path__it_normalized_form_gets_returned() throws Exception {
+    public void for_one_file_and_provided_absolute_path__it_gets_returned() throws Exception {
 
         DirectoryScanner scanner = mock(DirectoryScanner.class);
-        String userInput = "c:/someDir\\someRunner.exe";
-        String expected = "c:\\someDir\\someRunner.exe";
+        String userInput = "c:\\someDir\\someRunner.exe";
         this.openCoverRunnerScanner.setDirectoryScanner(scanner);
 
         String result = openCoverRunnerScanner.scanForSinglePath(null, userInput);
 
-        Assert.assertEquals(expected, result);
+        Assert.assertEquals(userInput, result);
     }
 }

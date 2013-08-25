@@ -47,14 +47,14 @@ public class TestsAssembliesPathsProvider {
             {
                 for(int j=0;j<resultForLine.length;j++)
                 {
-                    result.add((commandLineSwitch+" "+resultForLine[j]).trim());
+                    result.add((commandLineSwitch+resultForLine[j]).trim());
                 }
             }
         }
         if(result.size()==0)
             throw new FileNotFoundException("No test assemblies were found, please specify valid scanning patterns resulting in at least one file");
 
-        String runnerArgs = StringUtils.trimAndGlue("\" \"", result.toArray(new String[result.size()]));
-        return "\""+runnerArgs+"\"";
+        String runnerArgs = StringUtils.trimAndGlue("\\\" \\\"", result.toArray(new String[result.size()]));
+        return "\\\""+runnerArgs+"\\\"";
     }
 }

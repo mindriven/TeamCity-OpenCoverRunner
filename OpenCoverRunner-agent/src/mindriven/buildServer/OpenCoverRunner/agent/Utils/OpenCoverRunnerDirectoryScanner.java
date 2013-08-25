@@ -24,9 +24,9 @@ public class OpenCoverRunnerDirectoryScanner {
     }
 
     public String scanForSinglePath(String basePath, String pattern) throws FileNotFoundException {
-        String normalizedSlashesPath = pattern.replace("/", "\\");
-        if(this.isAbsoluteFilePath(normalizedSlashesPath))
-            return normalizedSlashesPath;
+
+        if(this.isAbsoluteFilePath(pattern))
+            return pattern;
         String[] allFound = this.scanForMultiplePaths(basePath, pattern);
         if(allFound.length!=1)
         {

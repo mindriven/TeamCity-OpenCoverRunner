@@ -59,7 +59,7 @@ public class OpenCoverRunnerCommandLine implements ProgramCommandLine {
         PrintWriter writer = new PrintWriter(cmdFilePath, "UTF-8");
         String openCoverCommand = this.constructExecutionCommand(openCoverExecutablePath, this.openCoverArgumentsProvider);
         String reportGeneratorCommand = this.constructExecutionCommand(reportGeneratorExecutablePath, this.reportGeneratorArgumentsProvider);
-        writer.println(openCoverCommand +" && "+ reportGeneratorCommand);
+        writer.println(openCoverCommand + " && " + reportGeneratorCommand);
         writer.println("echo %ERRORLEVEL%");
         writer.close();
     }

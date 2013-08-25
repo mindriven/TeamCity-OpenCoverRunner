@@ -95,7 +95,7 @@ public class When_getting_OpenCover_arguments {
 
         List<String> result = provider.getArguments();
 
-        Assert.assertTrue(result.contains("-target:\"pathToRunnerExecutable\""));
+        Assert.assertTrue(result.contains("-target:pathToRunnerExecutable"));
     }
 
     @Test
