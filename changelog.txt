@@ -2,4 +2,4 @@
 +absolute paths support
 +spaces support in paths
 +settings display page
-+minor UI 
++minor UI tweaks
