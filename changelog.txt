@@ -1,4 +1,5 @@
 1.0.1
 +absolute paths support
 +spaces support in paths
++settings display page
 +minor UI 
