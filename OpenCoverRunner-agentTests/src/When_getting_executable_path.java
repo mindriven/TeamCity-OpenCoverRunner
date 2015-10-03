@@ -44,13 +44,14 @@ public class When_getting_executable_path {
         Assert.assertEquals(userProvidedPath, argument.getValue());
     }
 
-    // inspired by https://github.com/mindriven/TeamCity-OpenCoverRunner/issues/8
     @Test
+    // inspired by https://github.com/mindriven/TeamCity-OpenCoverRunner/issues/8
     public void and_user_specifies_absolute_path__it_gets_returned_as_executable_path() throws Exception {
 
         String userProvidedPath = "C:\\Program Files\\Microsoft Visual Studio 12.0\\Common7\\IDE\\CommonExtensions\\Microsoft\\TestWindow\\vstest.console.exe";
         ConfigValuesProvider configProvider = mock(ConfigValuesProvider.class);
         when(configProvider.getValueOrDefault(OpenCoverRunnerConsts.SETTINGS_OPEN_COVER_PATH)).thenReturn(userProvidedPath);
+        when(configProvider.getValueOrDefault(OpenCoverRunnerConsts.SETTINGS_TEAM_CITY_CHECKOUT_DIR)).thenReturn("X:\\BuildAgent\\work\\9385ca14d240412f");
         ExecutablePathProvider provider = new ExecutablePathProvider(configProvider);
         OpenCoverRunnerDirectoryScanner scanner = new OpenCoverRunnerDirectoryScanner();
         provider.setDirectoryScanner(scanner);
