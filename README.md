@@ -24,7 +24,7 @@ For more info see [Bundled Development Package](https://confluence.jetbrains.com
 
 If prompted to select a SDK see [Configuring Global, Project and Module SDKs](https://www.jetbrains.com/idea/help/configuring-global-project-and-module-sdks.html#d1278485e69) or [SDKs. Java](https://www.jetbrains.com/idea/help/sdks-java.html)
 
-Deploy plugin
+Deploying plugin
 ----------------------
 **Using TeamCity UI**  
 Located the built in out\artifacts\plugin_zip\OpenCoverRunner.zip and upload through the Administration screen in teamcity.  Located under Administration > Plugins List, click Upload plugin zip.
